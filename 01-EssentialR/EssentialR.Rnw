@@ -1,0 +1,1277 @@
+<<default.opts, echo = FALSE, results = "hide">>=
+source("../DefaultOptions.R")
+@
+
+\chapter{Essential R}
+
+R is a language and environment for statistical computing and graphics \cite{R}.
+
+\begin{itemize}
+\item R provides a wide variety of statistical techniques.
+
+\item R provides a wide variety of graphical techniques.
+
+\item R is highly extensible.
+\end{itemize}
+
+R is Free Software (under the terms of the Free Software Foundation's GNU General Public License, either Version 2 or Version 3) and runs on Linux, Windows, and Mac OS.
+
+\vspace{0.5em}
+
+This chapter is a minimal introduction to R. 
+
+
+\section{Installing R and R Studio}
+
+The R software itself is simply a command interpreter: the user enters a text command and the interpreter returns a text (or graphic) answer.  RStudio is an integrated development environment (IDE) tailored for R.  An IDE is a program or suite of programs designed to make developing code easier.  RStudio provides a syntax-highlighting text editor with code completion, an R debugger, and its own graphics display (among a great many other features). 
+
+\subsubsection{Installing R}
+
+The R installer is available from 0-Cloud (a service provided by RStudio).
+
+\hspace{\mathindent} \url{https://cran.rstudio.com/}
+
+Download links are provided for Linux, Mac OS X, and MS Windows (Windows users should select the base link on the following page).  Download and install the software as usual.
+
+After installing, launch R and run the command
+<<eval = FALSE>>=
+demo("graphics")
+@
+in the R Console as a quick check that things are working.  This command will run through a brief demonstration of R's graphics capabilities (note: you may need to press enter in the R Console to advance through the graphics).
+
+
+\subsubsection{Installing R Studio}
+
+The R Studio installer is available from the R Studio website
+
+\vspace{0.5em}
+
+\hspace{\mathindent} \url{http://www.rstudio.com}
+
+\vspace{2em}
+
+
+After installing R Studio, run the command
+<<eval = FALSE>>=
+demo("graphics")
+@
+in the R Studio Console as a quick check that things are working
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Basic R Usage}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The R Console
+
+The \texttt{>} symbol is called the prompt: R is prompting you to enter a command
+
+\vspace{0.5em}
+
+
+R as a calculator: input the command $1 + 1$ at the prompt and press return
+
+
+
+<<results = "hide">>=
+1 + 1
+@
+
+\vspace{0.25em}
+
+
+The result appears on the next line
+
+
+
+<<echo = FALSE>>=
+1 + 1
+@
+
+\vspace{0.25em}
+
+
+R can replace your 4 function calculator (R follows the usual order of operations)
+
+\vspace{0.5em}
+
+
+\hspace{1em} \begin{tabular}{clcclccl}
+\texttt{+} & addition & & \texttt{-} & subtraction & & \texttt{\^} & power\\
+\texttt{*} & multiplication & & \texttt{/} & division & & & \\
+\end{tabular}
+
+\vspace{2em}
+
+
+Comments: any input following a \texttt{\#} is ignored (until the next new line)
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Mathematical Functions
+
+R includes a wide variety of mathematical functions
+
+\vspace{0.5em}
+
+
+For example, the \texttt{log} function returns the \emph{natural} logarithm of its argument
+
+
+
+<<>>=
+log(5)
+@
+
+\vspace{0.5em}
+
+
+Some commonly used functions are given in the following table
+
+\vspace{1em}
+
+\hspace{1em} \begin{tabular}{llcll}
+\texttt{log} & logarithm & \hspace{4em} & \texttt{exp} & exponential \\
+\texttt{sin} & sine & \hspace{4em} & \texttt{asin} & inverse sine \\
+\texttt{cos} & cosine & \hspace{4em} & \texttt{acos} & inverse cosine \\
+\texttt{tan} & tangent & \hspace{4em} & \texttt{atan} & inverse tangent \\
+\texttt{sqrt} & square root & \hspace{4em} &  &
+\end{tabular}
+
+\vspace{1em}
+
+Note: trigonometric functions use radians
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Constants and Special Values
+
+
+\textbf{Constants}
+
+
+
+Exponential base: $e^{1}$
+
+<<>>=
+exp(1)
+@
+
+\vspace{0.5em}
+
+
+$\pi$
+
+<<>>=
+pi
+@
+
+
+
+\textbf{Special Values}
+
+
+
+Plus and minus infinity
+
+
+
+<<>>=
+1/0
+@
+
+
+
+<<>>=
+log(0)
+@
+
+\vspace{0.5em}
+
+
+Not a Number
+
+
+
+<<>>=
+0/0
+@
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Caveats
+
+Numerical calculations in R are done using \emph{double precision} arithmetic
+
+\vspace{0.5em}
+
+
+Double precision arithmetic is \emph{not} real arithmetic
+
+\vspace{0.25em}
+
+
+\begin{itemize}
+\item There are a finite number of double precision numbers
+
+\vspace{0.25em}
+
+
+\item Input numbers are \textit{coerced} to the most appropriate double precision number
+\end{itemize}
+
+\vspace{0.5em}
+
+
+Leads to \textit{unexpected} behavior
+
+<<>>=
+(1/3)^2 - 1 / (3^2)
+@
+
+\vspace{1em}
+
+
+But \dots
+
+<<>>=
+(1/3)^3 - 1 / (3^3)
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Variables
+
+Values (e.g., the output of a function) can be saved in memory, this chunk of memory is called a \emph{variable}
+
+\vspace{0.5em}
+
+
+For example, suppose we want to evaluate $\sin(\frac{\pi}{2})$
+
+\vspace{0.5em}
+
+
+First, evaluate $\frac{\pi}{2}$ and store the result
+
+
+
+<<>>=
+u <- pi / 2
+@
+
+
+
+The assignment operator in R is \texttt{<-}, it assigns the value on the right to the variable on the left
+
+\vspace{0.5em}
+
+
+Second, compute the value of $\sin(\mbox{\texttt{u}})$
+
+<<>>=
+(v <- sin(u))
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Variable Names
+
+Variable names need/should conform to the following guidelines
+
+\vspace{0.25em}
+
+
+\begin{itemize}
+\item Variable names need to start with a character
+
+\vspace{0.25em}
+
+
+\item Variable names can contain characters, numbers, periods, and underscores 
+
+\vspace{0.25em}
+
+
+\item Variable names cannot be an R reserved word
+
+\vspace{1em}
+
+
+\hspace{1em} \begin{tabular}{lllll}
+if & else & repeat & while & function \\
+for & in & next & break & TRUE \\
+FALSE & NULL & Inf & NaN & NA \\
+\dots
+\end{tabular}
+
+\vspace{1em}
+
+
+\item Best practice: variable names should not be the name of a common R function
+
+\vspace{0.25em}
+
+
+\begin{itemize}
+\item \normalsize Some common collisions are \texttt{c}, \texttt{t}, \texttt{mean}, \texttt{var}, and \texttt{cov}
+\end{itemize}
+
+\end{itemize}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Workspace Management
+
+Variables are stored in R's workspace
+
+\vspace{0.5em}
+
+Use the \texttt{ls} function to list the variables in the workspace
+
+<<>>=
+ls()
+@
+
+Use the \texttt{rm} function to remove variables from the workspace
+
+<<>>=
+rm(u)
+@
+
+
+<<>>=
+ls()
+@
+
+\vspace{0.5em}
+
+
+R asks to save the workspace when quitting, saved workspaces are automatically restored the next time R starts
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{R is an Array Programming Language}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+What is an Array Programming Language?
+
+An array programming language generalizes operations to apply transparently to single and multi-dimensional arrays
+
+\vspace{0.5em}
+
+
+In R \dots
+
+
+
+\begin{itemize}
+\item a one dimensional array is called a \emph{vector}
+
+\vspace{0.25em}
+
+
+\item a two dimensional array is called a \emph{matrix}
+
+\vspace{0.25em}
+
+
+\item Higher dimensional arrays are possible but we are not going to use them
+\end{itemize}
+
+\vspace{1em}
+
+
+A goal of array programming is to provide a syntax similar to mathematical notation
+
+
+
+\begin{itemize}
+\item Very useful for \emph{programming with data}
+\end{itemize}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Vectors
+
+A \emph{vector} is an ordered collection of $n$ values with the same underlying type
+
+\vspace{1em}
+
+
+Example: suppose the vector ${\bf u} = (u_{1}, u_{2})$ describes a point in the $xy$-plane
+
+
+
+\begin{itemize}
+\item Both $u_{1}$ and $u_{1}$ should be real numbers
+
+\vspace{0.25em}
+
+
+\item Since the first value defines the $x$ coordinate and the second value the $y$ coordinate, the vector $(u_{1}, u_{2})$ is (in general) different than the vector $(u_{2}, u_{1})$
+\end{itemize}
+
+\vspace{0.5em}
+
+
+The number of values in the vector is called the \emph{length} of the vector
+
+\vspace{1em}
+
+
+Supported types include
+\begin{itemize}
+\item numeric
+\item character
+\item \dots
+\end{itemize}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Creating Vectors
+
+The function \texttt{c} combines values into a vector
+
+<<>>=
+(primes <- c(2, 3, 5, 7))
+@
+
+\vspace{1em}
+
+
+The function \texttt{length} returns the length of the input vector
+
+<<>>=
+length(primes)
+@
+
+\vspace{1em}
+
+
+The function \texttt{seq} creates sequences of equally-space values
+
+<<>>=
+seq(-1, 1, 0.5)
+@
+
+<<>>=
+seq(from = -1, to = 1, length = 5)
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Naming Vector Components
+
+The \texttt{=} operator assigns a name to a value
+
+\vspace{0.5em}
+
+
+Names can be given to the components of a vector
+
+<<>>=
+wall.street.wiz <- c(houses = 3, cars = 5, boats = 2)
+@
+
+<<>>=
+wall.street.wiz
+@
+
+\vspace{0.5em}
+
+
+The \texttt{names} function returns the names of the components of a vector
+
+<<>>=
+names(wall.street.wiz)
+@
+
+\vspace{0.5em}
+
+
+Remark: assigning a name to a value (\texttt{=}) often has the same effect as assigning a value to a variable (\texttt{<-}) $\implies$ \texttt{=} and \texttt{<-} can be used interchangeably
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Matrices
+
+A \emph{matrix} is a two dimensional array of values (of the same type) described by a number of rows and a number of columns
+
+\vspace{0.5em}
+
+
+The function \texttt{cbind} combines vectors (with the same length) into a matrix
+
+
+
+<<>>=
+col1 <- c(11, 21, 31, 41)
+col2 <- c(12, 22, 32, 42)
+(mat <- cbind(col1, col2))
+@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Component-wise Operations on Vectors
+
+What does it mean to
+\begin{quote}
+\dots generalize operations to apply transparently to single and multi-dimensional arrays
+\end{quote}
+
+\vspace{0.5em}
+
+
+When a vector is provided as the argument of a function, the output is a vector containing the function applied to each component of the input vector
+
+\vspace{0.5em}
+
+<<>>=
+(x <- 1:9)  # x <- seq(1, 9, 1)
+@
+
+<<>>=
+sqrt(x)
+@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Component-wise Composite Functions
+
+Shifting: adding a length $n$ vector and a length $1$ vector
+
+<<>>=
+x
+@
+
+<<>>=
+x + 2
+@
+
+\vspace{1em}
+
+
+Scaling: multiplying a length $n$ vector by a length $1$ vector
+
+\vspace{0.5em}
+
+
+<<>>=
+3*x
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Element-wise Composite Functions
+
+Functions act element-wise on matrices
+
+<<>>=
+mat
+@
+
+\vspace{0.5em}
+
+
+<<>>=
+3*mat + 2
+@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Subsetting Vectors}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Logical-Valued Functions
+
+Logical values in R are \texttt{TRUE} and \texttt{FALSE}
+
+\vspace{0.5em}
+
+
+Functions with a yes/no output generally return logical values
+
+\vspace{0.5em}
+
+<<>>=
+x
+@
+
+\vspace{0.25em}
+
+
+<<>>=
+x > 4
+@
+
+
+\vspace{0.25em}
+
+
+<<>>=
+(x.gt.eq.4 <- x >= 4)
+@
+
+\vspace{0.25em}
+
+
+<<>>=
+x == 4  # Remember the double precision caveat
+@
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Logical Vectors
+
+The variable \texttt{x.gt.eq.4} is a logical vector, that is
+
+\begin{itemize}
+\item it is a vector
+
+\item the underlying type of value is logical
+\end{itemize}
+
+\vspace{1em}
+
+
+Lets create a second logical vector
+
+<<>>=
+(x.lt.eq.7 <- x <= 7)
+@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Operations on Logical Vectors
+
+Three key operations for logical vectors: \texttt{\&} (AND), \texttt{|} (OR), and \texttt{!} (NOT)
+
+\vspace{0.5em}
+
+
+Suppose that \texttt{x} and \texttt{y} are logical vectors with the same length
+
+\vspace{1em}
+
+
+\texttt{AND}: \hspace{0.5em} \texttt{ans <- x \& y}
+
+
+
+\hspace{1em} \texttt{ans}$_{i}$ is \texttt{TRUE} if both \texttt{x}$_{i}$ and \texttt{y}$_{i}$ are \texttt{TRUE}, otherwise \texttt{ans}$_{i}$ is \texttt{FALSE}
+
+
+
+<<>>=
+x.gt.eq.4
+@
+
+<<>>=
+x.lt.eq.7
+@
+
+\vspace{0.5em}
+
+<<>>=
+x.gt.eq.4 & x.lt.eq.7
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Operations on Logical Vectors (continued)
+
+\texttt{OR}: \hspace{0.5em} \texttt{ans <- x | y}
+
+
+
+\hspace{1em} \texttt{ans}$_{i}$ is \texttt{FALSE} if both \texttt{x}$_{i}$ and \texttt{y}$_{i}$ are \texttt{FALSE}, otherwise \texttt{ans}$_{i}$ is \texttt{TRUE}
+
+\vspace{1em}
+
+
+<<>>=
+x.gt.eq.4
+@
+
+<<>>=
+x.lt.eq.7
+@
+
+\vspace{1em}
+
+
+
+<<>>=
+x.gt.eq.4 | x.lt.eq.7
+@
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Operations on Logical Vectors (continued)
+
+\texttt{NOT}: \hspace{0.5em} \texttt{ans <- !x}
+
+
+
+\hspace{1em} \texttt{ans}$_{i}$ is \texttt{FALSE} if \texttt{x}$_{i}$ is \texttt{TRUE}, otherwise \texttt{ans}$_{i}$ is \texttt{TRUE}
+
+\vspace{1em}
+
+
+<<>>=
+x.gt.eq.4
+@
+
+\vspace{1em}
+
+<<>>=
+!x.gt.eq.4
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Subsetting Vectors
+
+The subset operator in R is square brackets: \texttt{[]}
+
+\vspace{0.5em}
+
+
+If
+
+\vspace{-0.5em}
+
+
+\begin{itemize}
+\item \texttt{x} is a vector (with any underlying type)
+
+
+
+\item \texttt{idx} is a logical vector the same length as \texttt{x}
+\end{itemize}
+
+
+
+then \texttt{x[idx]} is a vector (with the same underlying type as \texttt{x}) containing the components of \texttt{x} for which \texttt{idx} is \texttt{TRUE} 
+
+\vspace{0.5em}
+
+<<>>=
+x[x.gt.eq.4]
+@
+
+\vspace{0.5em}
+
+<<>>=
+x[x.lt.eq.7]
+@
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Subsetting Vectors -- More Examples
+
+<<E>>=
+x[x < 6]
+@
+
+\vspace{0.5em}
+
+<<>>=
+x[x > 2 & x < 8]
+@
+
+\vspace{0.5em}
+
+<<>>=
+x[x <= 2 | x >= 8]
+@
+
+\vspace{0.5em}
+
+<<>>=
+x[!(x == 3 | x == 6)]
+@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Subsetting Vectors by Index
+
+Suppose that \texttt{x} is a vector of length $n$
+
+\vspace{0.5em}
+
+
+Let \texttt{idx} be a vector of values from the set $\{1, 2, \ldots, n\}$
+
+\vspace{0.5em}
+
+
+The vector \texttt{ans <- x[idx]} is the same length as \texttt{idx} and has components
+
+\vspace{0.5em}
+
+\hspace{1em} \texttt{ans}$_{i}$ = \texttt{x}$_{\mbox{\texttt{\tiny idx}}_{i}}$
+
+\vspace{0.5em}
+
+
+<<>>=
+primes
+@
+
+\vspace{0.5em}
+
+<<>>=
+primes[c(2, 4)]
+@
+
+\vspace{1em}
+
+
+From now on: write \texttt{ans[i]} to mean \texttt{ans}$_{i}$
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Installing and Loading R Packages}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+R Packages
+
+An R package is a collection of functions and data (and \dots)
+
+\vspace{0.5em}
+
+
+$\implies$ loading a package into your R session extends the capabilities of R
+
+\vspace{1em}
+
+
+Packages loaded by default
+
+<<>>=
+search()
+@
+
+\vspace{1em}
+
+
+For the curious: use the \texttt{find} function to see what package provides an object
+
+<<>>=
+find("log")
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Loading R Packages
+
+Later in the course, we will use the \texttt{fitdistr} function from the \texttt{MASS} package
+
+\vspace{0.5em}
+
+
+\texttt{MASS} is a recommended package, it is already installed on your computer
+
+\vspace{0.5em}
+
+
+The \texttt{library} function loads and attaches packages to the R session
+
+
+
+<<>>=
+library(MASS)
+@
+
+
+
+The functions and data provided by the \texttt{MASS} package are now available to the R session
+
+<<>>=
+search()
+@
+
+<<>>=
+find("fitdistr")
+@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Installing R Packages
+
+The extensive collection of user-contributed packages is one of the reasons for the popularity of R
+
+\vspace{0.5em}
+
+
+The \href{http://cran.r-project.org/web/packages/available_packages_by_name.html}{Comprehensive R Archive Network} (CRAN) is a clearing house for user-contributed packages
+
+\vspace{0.5em}
+
+
+The \texttt{install.packages} function downloads packages from CRAN and installs them on your computer
+
+\vspace{0.5em}
+
+
+The \texttt{getSymbols} function on the \texttt{quantmod} package will be the primary source of price data used in this course
+
+
+
+<<eval = FALSE>>=
+install.packages("quantmod")
+@
+
+
+
+The package must be loaded and attached to the R session
+
+
+
+<<>>=
+library("quantmod")
+@
+
+<<>>=
+find("getSymbols")
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Summary R Packages
+
+Installing a package means downloading the package from CRAN and installing it on the computer
+
+\vspace{0.5em}
+
+
+\hspace{1em} Installing only needs to be done once (per computer)
+
+\vspace{2em}
+
+
+Loading and attaching a package means telling the R session to look for functions (data, etc.) in the package
+
+\vspace{0.5em}
+
+
+\hspace{1em} Loading and attaching needs to be done in each R session
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{The R Help System}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Getting Help
+
+The \texttt{log} function returns the natural logarithm of its argument
+
+\vspace{0.5em}
+
+
+How were we supposed to know that?
+
+\vspace{0.5em}
+
+
+The \texttt{help} function displays the documentation associated with an object
+
+
+
+<<eval = FALSE>>=
+help(log)
+@
+
+\vspace{0.5em}
+
+
+Documentation is divided into sections including
+
+
+
+\begin{description}
+\item[Description] a description of the function or functions
+
+
+
+\item[Usage] how to call the function
+
+
+
+\item[Arguments] supported types of arguments
+
+
+
+\item[Details] additional explanation if needed
+
+
+
+\item[Value] a description of the returned object
+
+
+
+\item[See Also] related functions
+
+
+
+\item[Examples]
+\end{description}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Plotting}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+The \texttt{plot} Function
+
+The \texttt{plot} function produces scatter plots
+
+
+
+\begin{verbatim}
+Usage:
+
+     plot(x, y, ...)
+\end{verbatim}
+
+
+
+The points are $(x_{i}, y_{i})$, the argument \texttt{x} is a vector containing the $x$ values and \texttt{y} is a vector (the same length as \texttt{x}) containing the $y$ values
+
+\vspace{0.5em}
+
+
+The \texttt{...} is a placeholder for optional arguments
+
+\vspace{2em}
+
+
+Example:
+
+<<>>=
+x <- seq(0.1, 5, 0.1)
+y <- log(x)
+@
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Plot with Defaults
+
+<<>>=
+plot(x, y)
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Optional Arguments: \texttt{type}
+
+<<>>=
+plot(x, y, type = "l")
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Optional Arguments: Axis Labels
+
+<<>>=
+plot(x, y, xlab = "x-axis label", ylab = "y-axis label")
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Optional Arguments: Title
+
+<<>>=
+plot(x, y, main = "Plot Title")
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Optional Arguments: Plotting Region
+
+<<>>=
+plot(x, y, xlim = c(-1, 6), ylim = c(-3, 3))
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Optional Arguments: Setting the Aspect Ratio
+
+<<>>=
+plot(x, y, asp = 1)
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Optional Arguments: Plotting Symbol
+
+<<>>=
+plot(x, y, pch = 16)
+@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Optional Arguments: Color
+
+<<>>=
+plot(x, y, col = "blue")
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Square Plotting Region
+
+<<>>=
+par(pty = "s")
+plot(x, y)
+@
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Object-Oriented Plotting
+
+R is an object-oriented programming language $\implies$ behavior of the plot function depends on what \texttt{x} is
+
+\vspace{0.5em}
+
+If \texttt{x} is a vector then we get a scatter plot
+
+\vspace{0.5em}
+
+If \texttt{x} is a financial prices series
+
+<<>>=
+getSymbols("SBUX")
+@
+
+The variable \texttt{SBUX} contains 10 years of price data for Starbucks
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Plotting a Price Series
+
+<<>>=
+plot(SBUX)
+@
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Additional Resources}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+Additional Resources for Learning R
+
+DataCamp: The easiest way to learn R programming and data science
+
+\vspace{0.5em}
+
+\hspace{1em} \url{https://www.datacamp.com}
+
+
+
+
+

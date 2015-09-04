@@ -1,0 +1,230 @@
+% !Rnw root = ../../master.Rnw
+
+\chapter{Random Variables}
+\section{Random variables}
+
+In many situations it is useful to consider the outcome of a random experiment as a real number.  For instance, suppose we consider an experiment consisting of flipping a fair coin ten times.  The sample space $S$ is the set of all possible strings of $H$s and $T$s of length $10$ (of which there are $2^{10} = 1024$), but often the \textit{how many Heads in 10 flips} interpretation better describes the situation we wish to model.  In this case, the possible outcomes are $\{0, 1, \dots, 10\}$.
+
+\begin{defn}
+A \emph{random variable} is a function from the sample space $S$ into the real numbers. 
+\end{defn}
+
+Continuing with the example above, let $s := HTTHTHTTHT$ be an elementary outcome in the sample space $S$.  We can define the random variable $X$ (on the sample space $S$) to be the number of heads in $s$.  In this case,
+\begin{equation*}
+X(s) = 6
+\end{equation*}
+because there are $6$ heads in the string $s$.  Clearly, there are a lot of elementary outcomes in $S$ that have $6$ heads ($210$ in fact).  In contrast, there is only one elementary outcome in $S$ that has $10$ heads.  It follows that $P(X = 6)$ is $210$ times greater than $P(X = 10)$.
+
+%We can also think of a random variable as a random experiment where the sample space $S~=~\mathbb{R}$ (i.e., the real numbers).  For example, suppose $X$ is a random variable defined on a single coin flip such that tails is $0$ and heads is $1$.  For an event $A$ defined on $S$ (i.e., $A$ is a set of real numbers), the probability of $A$ is
+%\begin{equation}
+%P(A) = \begin{cases}
+%0.5 & \{0\} \subset A \; \mbox{and} \; \{1\} \not\subset A \\
+%0.5 & \{1\} \subset A \; \mbox{and} \; \{0\} \not\subset A \\
+%1 & \{0, 1\} \subset A \\
+%0 & \mbox{otherwise.}
+%\end{cases}
+%\end{equation}
+
+%While this example might seem rather contrived, its purpose it to show that the results from the prevous chapter also apply to random variables.
+
+Although we have used the concept of a sample place in their definition, random variables can also be studied in their own right (i.e., without direct knowledge of the underlying sample space).
+
+Random variables are usually denoted using uppercase letters, e.g., \textit{a random variable $X$} (or $Y$ or $Z$).  A fixed, real number corresponding to the random variable is then denoted by the lowercase letter, e.g., $x$ (or $y$ or $z$).  For example, we write $P(X = x)$ to mean the probability that the random variable $X$ takes the fixed (nonrandom) value $x$. 
+
+\begin{defn}
+The set $S_{X}$ of all possible values that a random variable $X$ can take is called the \emph{support} of $X$.
+\end{defn}
+
+Consider the following $4$ random variables.
+
+\begin{enumerate}
+\item Let $X$ be the number of heads in $10$ flips of a fair coin.
+
+The support $S_{X} = \{0, 1, \ldots, 10\}$ is discrete and finite.  Discrete and finite means that we can write down every number in the support.  It might take a long time (and a lot of paper) and not be very much fun, but we could do it.
+
+\item Let $Y$ be the index of the first head in a sequence of coin flips.
+
+The support $S_{Y} = \{0, 1, \ldots \}$ is discrete and infinite.  Discrete and infinite means that we can make a correspondence between the elements of the support and the Natural numbers (non negative integers).  In this case, $S_{Y}$ is already the Natural numbers so the correspondence is trivial.
+
+\item Let $U$ be a random probability.
+
+The support $S_{U} = [0, 1]$ is continuous and bounded.  Continuous means that the support contains all real numbers in an interval.  Bounded means that there are minimum and maximum possible values (in this case $0$ and $1$).
+
+\item Let $W$ be the return on the S\&P 500 during the next trading day.
+
+The support $S_{W} = [-1, \infty)$ is continuous and bounded. There is technically no upper bound for the return on an asset, the worst we can possible do is lose everything.
+\end{enumerate}
+
+
+\section{Distribution functions}
+
+A random variable is characterized by its cumulative distribution function.
+
+\begin{defn}
+The \emph{cumulative distribution function} or \emph{cdf} of a random variable $X$ is
+\begin{equation*}
+F_{X}(x) = P(X \leq x).
+\end{equation*}
+\end{defn}
+
+That is, the value of the cdf $F_{X}(x)$ is the probability that the random variable $X$ takes a value less than or equal to its argument $x$.
+
+The following theorem lists some of the properties of the cdf.
+
+\begin{thm}
+The function $F(x)$ is a cumulative distribution function if and only if the following three conditions hold.
+
+\begin{enumerate}
+\item $\displaystyle \lim_{x \rightarrow -\infty} F(x) = 0$ and $\displaystyle \lim_{x \rightarrow \infty} F(x) = 1$.
+\item $F(x)$ is a non decreasing function of $x$.
+\item $F(x)$ is right-continuous.
+\end{enumerate}
+\end{thm}
+
+Non decreasing means that $x > x_{0}$ $\implies$ $F(x) \geq F(x_{0})$
+
+Right-continuous means that for every $x_{0}$
+\begin{equation}
+\lim_{x \rightarrow x_{0}^{+}} F(x) = F(x_{0})
+\end{equation}
+where the notation $x \rightarrow x_{0}^{+}$ means $x$ approaches $x_{0}$ and $x > x_{0}$.
+
+\begin{defn}
+Two random variables $X$ and $Y$ are \emph{identically distributed} if, for every set $A$, $P(X \in A) = P(Y \in A)$.
+\end{defn}
+
+\begin{thm}
+The following two statements are equivalent:
+\begin{enumerate}
+\item The random variables $X$ and $Y$ are identically distributed.
+\item $F_{X}(x) = F_{Y}(x)$ for every $x$.
+\end{enumerate}
+\end{thm}
+
+
+\section{Mass and density functions}
+
+We consider two classes of random variables: \emph{discrete} and \emph{continuous}. These classes will be dealt with separately.
+
+\subsection{Discrete Random Variables}
+
+\begin{defn}
+A random variable $X$ is \emph{discrete} if its cumulative distribution function $F_{X}(x)$ is a step function of $x$.
+\end{defn}
+
+%<<cdfs, echo = FALSE, results = "hide", fig.cap = "two plots", fig.subcap = c("one plot", "the other one"), out.width = ".49\\linewidth">>=
+%par(pty = "s")
+%plot(stepfun(1:6, (0:6)/6, right = TRUE), verticals = FALSE, main = "")
+%x <- seq(-3, 3, length = 601)
+%par(pty = "s")
+%plot(x, pnorm(x), type = "l")
+%@
+
+\begin{defn}
+The \emph{probability mass function} (\emph{pmf}) of a discrete random variable $X$ is given by
+$$f_{X}(x) = P(X = x) \;\; \mbox{for all} \;\; x.$$
+\end{defn}
+
+
+\subsection{Continuous Random Variables}
+
+\begin{defn}
+A random variable $X$ is \emph{continuous} if its cumulative distribution function $F_{X}(x)$ is a continuous function of $x$.
+\end{defn}
+
+\begin{defn}
+The \emph{probability density function} (\emph{pdf}), $f_{X}(x)$, of a continuous random variable $X$ is the function that satisfies
+$$F_{X}(x) = \int_{-\infty}^{x} f_{X}(t) \, dt \;\; \mbox{for all} \;\; x.$$
+\end{defn}
+
+\begin{thm}
+A function $f_{X}(x)$ is a pdf (or pmf) of a random variable $X$ if and only if
+\begin{enumerate}
+\item $f_{X}(x) \geq 0$ for all $x$.
+\item $\sum_{x} f_{X}(x) = 1$ (pmf) \hspace{2em} or \hspace{2em} $\int_{-\infty}^{\infty} f_{X}(x) = 1$ (pdf).
+\end{enumerate}
+\end{thm}
+
+
+\section{Expected value}
+
+\begin{defn}
+The \emph{expected value} or \emph{mean} of a random variable $X$ is defined to be
+
+$$\mbox{E}(X) = \begin{cases}
+\displaystyle \;\; \int_{-\infty}^{\infty} x \, f_{X}(x) \, dx & \mbox{if $X$ is continuous} \\
+& \\
+\displaystyle \;\; \sum_{x} x \, f_{X}(x) & \mbox{if $X$ is discrete} \\
+\end{cases}$$
+
+provided that the integral (or sum) is finite.  Further, the expected value of a function $g$ of a random variable $X$ is defined to be
+
+$$\mbox{E} \big( g(X) \big) = \begin{cases}
+\displaystyle \;\; \int_{-\infty}^{\infty} g(x) \, f_{X}(x) \, dx & \mbox{if $X$ is continuous} \\
+  & \\
+\displaystyle \;\; \sum_{x} g(x) \, f_{X}(x) & \mbox{if $X$ is discrete} \\
+\end{cases}$$
+
+again provided the integral (or sum) is finite.  If the integral (or sum) diverges, then the expected value doees not exist.
+\end{defn}
+
+The following four properties are useful for computing and comparing expected values.  Let $X$ be a random variable and let $a$, $b$, and $c$ be constant.  Then for any two functions $g_{1}(x)$ and $g_{2}(x)$ (whose expected values with respect to $X$ exist),
+
+\begin{enumerate}
+\item $\mbox{E} \big[ ag_{1}(X) + bg_{2}(X) + c \big] = a \mbox{E} \big[ g_{1}(X) \big] + b \mbox{E} \big[ g_{2}(X) \big] + c$.
+\item If $g_{1}(x) \geq 0$ for all $x$, then $\mbox{E} \big[ g_{1}(X) \big] \geq 0$.
+\item If $g_{1}(x) \geq g_{2}(x)$ for all $x$, then $\mbox{E} \big[ g_{1}(X) \big] \geq \mbox{E} \big[ g_{2}(X) \big]$.
+\item If $a \leq g_{1}(x) \leq b$ for all $x$, then $a \leq \mbox{E} \big[ g_{1}(X) \big] \leq b$.
+\end{enumerate}
+
+
+\section{Moments and variance}
+
+An important class of expectations are the \emph{moments} of a distribution.
+
+\vspace{0.5em}
+
+\begin{defn}
+For each positive integer $n$, the $n^{th}$ \emph{moment} $\mu_{n}'$ of $X$ is
+
+$$\mu_{n}' = \mbox{E} (X^{n})$$
+
+and the $n^{th}$ \emph{central moment} $\mu_{n}$ of $X$ is
+
+$$\mu_{n} = \mbox{E} \big[ (X - \mbox{E}(X) \big]^n.$$
+\end{defn}
+
+\begin{defn}
+The \emph{variance} of a random variable $X$ is its second central moment, i.e., $\mbox{Var} \, X = \mbox{E} (X - \mbox{E}X)^2$.  The positive square root of $\mbox{Var} \, X$ is the \emph{standard deviation} of $X$.
+\end{defn}
+
+\subsection{Properties of the variance}
+
+The following two properties are often useful when computing variances.  Let $X$ be a random variable with finite variance and let $a$ and $b$ be any two constants, then
+
+\begin{enumerate}
+\item $\mbox{Var} \, (aX + b) = a^{2} \, \mbox{Var} \, X$,
+\item $\mbox{Var} \, X = \mbox{E}X^2 - (\mbox{E}X)^2.$
+\end{enumerate}
+
+
+\section{Change of Variables Formula}
+
+Let $X$ be a random variable with probability density function $f_{X}(x)$ and suppose we define a new random variable
+
+$$Y = g(X)$$
+
+where $g$ is a monotonic function.  Then the probability density function of the random variable $Y$ is
+
+$$f_{Y}(y) = f_{X}\left(g^{-1}(y)\right) \left| \frac{d}{dy} g^{-1}(y) \right|$$
+
+where $g^{-1}$ denotes the inverse function of $g$.
+
+%\newpage{}
+%\section{Exercises}
+%
+%
+%\setcounter{thm}{0}
+%
+%\begin{exercise}
+%\end{exercise}

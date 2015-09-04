@@ -1,0 +1,68 @@
+\documentclass[12pt,fleqn]{book}
+
+\includeonly{01-EssentialR/EssentialR}
+
+\usepackage[letterpaper]{geometry}
+\geometry{tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+\usepackage[parfill]{parskip}  
+
+\usepackage{enumerate}
+\usepackage{knitr}
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+
+\newtheoremstyle{mystylethm}
+  {0.8em} % Space above
+  {} % Space below
+  {\itshape} % Body font
+  {} % Indent amount
+  {\bfseries} % Theorem head font
+  {.} % Punctuation after theorem head
+  {.5em} % Space after theorem head
+  {} % Theorem head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mystylethm}
+  \newtheorem{thm}{Theorem}[chapter]
+  \newtheorem{lemma}{Lemma}[chapter]
+
+\newtheoremstyle{mystyle}
+  {0.8em} % Space above
+  {} % Space below
+  {} % Body font
+  {} % Indent amount
+  {\bfseries} % Theorem head font
+  {.} % Punctuation after theorem head
+  {.5em} % Space after theorem head
+  {} % Theorem head spec (can be left empty, meaning `normal')
+
+\theoremstyle{mystyle}
+  \newtheorem{defn}{Definition}[chapter]
+  \newtheorem{example}{Example}[chapter]
+  \newtheorem{exercise}{Exercise}[chapter]
+  \newtheorem{rem}{Remark}
+
+
+\title{A Probability and Statistics Primer for Quantitative Finance}
+\author{Kjell P. Konis\\ University of Washington}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+\clearpage
+
+\tableofcontents
+
+\include{00-Preface/Preface}
+\include{01-EssentialR/EssentialR}
+\include{02-ExploratoryDataAnalysis/ExploratoryDataAnalysis}
+\include{04-Probability/Probability}
+\include{05-RandomVariables/RandomVariables}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

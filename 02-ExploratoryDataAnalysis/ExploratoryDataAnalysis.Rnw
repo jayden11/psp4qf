@@ -1,0 +1,94 @@
+\chapter{Exploratory Data Analysis}
+
+<<default.opts, echo = FALSE, results = "hide">>=
+source("../DefaultOptions.R")
+@
+
+\section{Types of Data}
+
+\section{Exploratory Analysis of Qualitative Variables}
+
+<<load.data>>=
+load(url("http://faculty.washington.edu/kjellk/data/SP500comps.RData"))
+@
+
+<<list.files>>=
+ls()
+@
+
+<<get.class>>=
+class(SP500comps)
+@
+
+<<head>>=
+head(SP500comps, 5)
+@
+
+<<names>>=
+names(SP500comps)
+@
+
+<<classes>>=
+sapply(SP500comps, class)
+@
+
+<<levels>>=
+levels(SP500comps$Sector)
+@
+
+<<freqs>>=
+(frequencies <- table(SP500comps$Sector))
+@
+
+<<pie, dev = "tikz">>=
+pie(frequencies)
+@
+
+<<barplot, dev = "tikz">>=
+barplot(frequencies, ylab = "Frequency",
+        names = abbreviate(names(frequencies), 2))
+@
+
+
+
+
+
+\section{Exploratory Analysis of Quantitative Variables}
+
+\subsection{Histograms}
+
+\subsection{Kernel Density Estimation}
+
+\subsubsection{Smooth Density Estiamtion}
+
+\subsubsection{Bandwidth Selection}
+
+\subsection{Sample Quantiles}
+
+\subsection{Empirical Cumulative Distribution Function}
+
+\subsection{Boxplots}
+
+\subsection{Numerical Summaries of Quantitative Variables}
+
+\subsubsection{Measures of Central Tendancy}
+
+\subsubsection{Measures of Dispersion}
+
+\subsubsection{Measures of Skewness and Kurtosis}
+
+\subsection{Multivariate Data}
+
+\subsubsection{Numerical Summaries of Multivariate Data}
+
+\subsection{The Gaussian Reference}
+
+\subsubsection{Quantile-Quantile Plots}
+
+
+
+
+\subsection{Plotting Best Practices}
+
+\subsubsection{Plotting Faux Pas}
+

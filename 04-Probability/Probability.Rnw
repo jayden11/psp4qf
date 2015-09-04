@@ -1,0 +1,384 @@
+\chapter{Probability Concepts}
+
+A \emph{random experiment}, or \emph{experiment} for short, is an experiment whose outcome cannot be predicted with certainty before the experiment is preformed.  This differs from other branches of science where, when the same experiment is carried out (same setup, same initial conditions, etc.) multiple times, one would expect the same (or at least a very similar) result.  A random experiment describes a situation like flipping a coin. If a coin is flipped two times, the result of the second flip is not necessarily the same as the result of the first. This chapter introduces mathematical tools for analyzing random experiments.
+
+\section{Set theory}
+
+Conceptually, a \emph{set} is a collection of distinct objects.  For our purposes, we can think of a set as a rule (or operation) with two possible outputs: either the object is in the set or the object is not in the set.  The rule can be as simple as a list of the objects comprising the set. In the following notation, the left-hand-side is the name of the set and the right-hand-side is the list of the objects (separated by commas and in curly brackets).
+\begin{equation}
+V = \{a, e, i, o, u\}
+\end{equation}
+Although it is quite clear what the elements of $V$ are, we can still think of this list as a rule. The answer to the question, ``is $d$ in the set $V$?'' is, ``the object $d$ is not in the set $V$'' because the object $d$ is not in the list $\{a, e, i, o, u\}$. 
+
+The rule can be stated mathematically.  For example, consider the following rule (set).
+\begin{equation}
+U = \{z \in \mathbb{Z} \; | \; z \geq 3 \; \mbox{and} \; z \leq 7\}
+\end{equation}
+The notation $\in$ means \emph{in} and the notation $|$ means \emph{such that}, so we read the rule as ``$U$ is the set of integers that are greater than or equal to $3$ and less than or equal to $7$.''  In this case, it would probably have been more clear if we had defined
+\begin{equation}
+U = \{3, 4, 5, 6, 7\}.
+\end{equation}
+However, suppose that we made the set from real numbers instead. Let
+\begin{equation}
+W = \{x \in \mathbb{R} \; | \; x \geq 3 \; \mbox{and} \; x \leq 7\}.
+\end{equation}
+Since there are (uncountably) infinitely many real numbers greater than or equal to $3$ and less than or equal to $7$, it is no longer possible to list the objects comprising $W$.  We can still test real numbers using the rule defining $W$: ``is $\pi$ in $W$?'', ``is $e$ in $W$?''.  When an object is in the set, we use the notation $\in$. The answer to the first question is $\pi \in W$ because $\pi$ is a real number greater than or equal to $3$ and less than or equal to $7$.  When an object is not in the set, we use the notation $\not\in$.  The answer to the second question is $e \not\in W$ because $e < 3$ (here $e \approx 2.718$ is the base of the natural logarithm).
+
+
+\subsection{Sets of Outcomes}
+
+Each possible outcome of a random experiment is called an \emph{elementary outcome}.  For example, if the random experiment is a coin-flip, then the elementary outcomes are $H =$ \emph{Heads} and $T =$ \emph{Tails}. If the random experiment is rolling a $6$-sided die, then the elementary outcomes are the integers $1$, $2$, $3$, $4$, $5$, and $6$.
+
+\subsubsection{Sample Space}
+
+The set $S$ of all possible elementary outcomes of a random experiment is called the \emph{sample space} of the experiment.  
+
+The sample space corresponding to the single coin-flip random experiment is
+\begin{equation}
+S = \{H, T\}.
+\end{equation}
+
+The sample space corresponding to the rolling a $6$-sided die random experiment is
+\begin{equation}
+S = \{1, 2, 3, 4, 5, 6\}.
+\end{equation}
+
+Notation: a lowercase letter is used to denote an elementary outcome in the set whose name is the corresponding uppercase letter. For example, $s \in S$ is an elementary outcome in the sample space $S$.
+
+\subsubsection{Event}
+An \emph{event} is a set of elementary outcomes of the random experiment.
+
+We say that an event $A$ is defined on the sample space $S$ when $A$ is a set of the elementary outcomes comprising $S$.  That is, for every elementary outcome $a \in A$, $a \in S$ as well.
+
+Let $A$ be an event defined on the sample space $S$ and let $s \in S$ be the outcome of the experiment.  We say that the event $A$ \emph{occurs} if $s \in A$. If $s \not\in A$ then $A$ did not occur.
+
+\subsubsection{The Empty Set}
+
+The set containing no objects is called the \emph{empty set}.
+
+\subsection{Operations on Subsets}
+
+When we think back to primary school, first we learned about numbers and then we learned operations ($+$, $-$, $\times$, $\div$) to manipulate them.  In the current context, events play the role of the numbers and we now introduce the operations that allow us to manipulate them.  The point is that we want to be able to do math with sets.
+
+\subsubsection{Containment}
+
+A set $A$ is \emph{contained} in a set $B$ if $s \in A \implies s \in B$. We use the notation $A \subset B$ to mean that the set $A$ is contained in the set $B$.  
+
+\subsubsection{Subset}
+
+Let $A$ and $B$ be sets and suppose $A \subset B$. Then $A$ is a \emph{subset} $B$.
+
+\begin{exercise}
+Let $A$ be an event defined on the sample space $S$. Show that $A \subset S$.
+\end{exercise}
+
+In the context of probability, the sets we concern ourselves with are events (subsets of the sample space $S$). At this point we adopt the terminology of probability rather than that set theory in general. Sets, unless otherwise noted, are subsets of the sample space $S$ and will be called events or subsets (these two terms are used somewhat interchangeably).
+
+
+\subsubsection{Equality of Subsets}
+Two subsets $A$ and $B$ are \emph{equal} if $A$ is contained in $B$ and $B$ is contained in $A$.  We use the notation
+\begin{equation}
+A = B \Longleftrightarrow A \subset B \;\; \mbox{and} \;\; B \subset A.
+\end{equation}
+
+\subsubsection{Intersection}
+
+The \emph{intersection} of two subsets $A$ and $B$ is the subset whose elementary outcomes are in both $A$ and $B$.  The intersection of $A$ and $B$ is denoted $A \cap B$ and
+\begin{equation}
+s \in (A \cap B) \iff s \in A \; \mbox{and} \; s \in B.
+\end{equation}
+
+If $A \cap B = \emptyset$ then $A$ and $B$ are \emph{disjoint}. 
+
+\subsubsection{Union}
+
+The \emph{union} of two subsets $A$ and $B$ is the subset whose elementary outcomes are in at least one of $A$ and $B$.  The union of $A$ and $B$ is denoted $A \cup B$ and
+\begin{equation}
+s \in (A \cup B) \iff s \in A \; \mbox{or} \; s \in B
+\end{equation}
+(where $s \in A$ or $s \in B$ includes $s \in A$ and $s \in B$).
+
+\subsubsection{Complement}
+
+The \emph{complement} of a subset $A$ is the subset whose elementary outcomes are not in $A$. The complement of $A$ is denoted $A^{c}$ and
+\begin{equation}
+A^{c} = \{s \in S \; | \; s \not\in A\}.
+\end{equation}
+
+\subsubsection{Set Difference}
+
+The \emph{set difference} of subsets $A$ and $B$ is the subset of elementary outcomes that are in $A$ but not in $B$. The set difference is denoted $A \setminus B$ and
+\begin{equation}
+s \in (A \setminus B) \iff s \in A \; \mbox{and} \; s \not\in B.
+\end{equation}
+
+Caveat: the set difference is not symmetric. That is, $(A \setminus B) \neq (B \setminus A)$ in general.
+
+\subsubsection{Properties}
+
+Let $A$, $B$, and $C$ be events (subsets) defined on a sample space $S$.
+
+\begin{enumerate}
+\item $A \cup \emptyset = A, \quad A \cap \emptyset = \emptyset$
+\item $A \cup S = S, \quad A \cap S = A$
+\item $A \cup A^{c} = S$, \quad $A \cap A^{c} = \emptyset$
+\item $(A^{c})^{c} = A$
+\item Commutative Property
+\begin{equation}
+A \cup B = B \cup A, \quad A \cap B = B \cap A
+\end{equation}
+\item Associative Property
+\begin{equation}
+(A \cup B) \cup C = A \cup (B \cup C), \quad (A \cap B) \cap C = A \cap (B \cap C)
+\end{equation}
+\item Distributive Property
+\begin{equation}
+A \cup (B \cap C) = (A \cup B) \cap (A \cup C), \quad A \cap (B \cup C) = (A \cap B) \cup (A \cap C)
+\end{equation}
+\item DeMorgan's Laws
+\begin{equation}
+(A \cup B)^{c} = A^{c} \cap B^{c}, \quad (A \cap B)^{c} = A^{c} \cup B^{c}
+\end{equation}
+\end{enumerate}
+
+
+\section{Probability Theory}
+
+Each time the random experiment is performed, one of the elementary outcomes in the sample space is realized.  If the experiment is repeated continually, each elementary outcome will occur with a certain frequency.  Conceptually, the long-run frequency of occurrence of each elementary outcome can be thought of as (proportional to) the probability of that outcome.
+
+\subsubsection{Probability Functions}
+Let $A$ be an event defined on a sample space $S$.  A \emph{probability function} $P$ is a function that assigns a number $P(A) = p$ to $A$ called the \emph{probability} of $A$.
+
+Probability functions satisfy the following three axioms which are called the \emph{Kolmogorov Axioms} or, alternatively,  the \emph{Axioms of Probability}.
+
+\begin{enumerate}
+\item $P(A) \in \mathbb{R}$ and  $P(A) \geq 0$ for all $A \subset S$.
+
+\item $P(S) = 1$.
+
+\item If the events $A_{1}$, $A_{2}$, $A_{3},$ \ldots{} are disjoint (i.e., $A_{i} \cap A_{j} = \emptyset \,$ when $i \neq j$) then
+$$P\left(\bigcup_{i=1}^{\infty} A_{i}\right) = \sum_{i=1}^{\infty} P(A_{i}).$$
+
+\end{enumerate}
+
+
+\subsection{Probability calculus}
+
+Several useful properties follow from the Kolmogorov Axioms.
+
+If $P$ is a probability function and $A$ is an event defined on the sample space $S$, then
+
+\begin{enumerate}
+\item $P(\emptyset) = 0$,
+\item $P(A) \leq 1$,
+\item $P(A^{c}) = 1 - P(A)$.
+\end{enumerate}
+
+If $P$ is a probability function and $A$ and $B$ are events defined on $S$,  then
+
+\begin{enumerate}
+\item $A \subset B$ $\implies$ $P(A) \leq P(B)$,
+\item $P(A \cup B) = P(A) + P(B) - P(A \cap B)$,
+\item if $B_{1}$, $B_{2}$, \ldots{}, $B_{n}$ are disjoint ($B_{i} \cap B_{j} = \emptyset$ when $i \neq j$) and exhaustive ($\bigcup_{i = 1}^{n} B_{i} = S$), then
+\begin{equation}
+P(A) = P(A \cap B_{1}) + P(A \cap B_{2}) + \cdots + P(A \cap B_{n}).
+\end{equation}
+\end{enumerate}
+
+
+\subsection{Equally Likely Elementary Outcomes}
+
+A simple and useful assumption to make when the sample space $S$ is composed of a finite number $n$ of elementary outcomes is that each elementary outcome is equally likely to occur.  Suppose that $s_{i} \in S$ for $i = 1, \ldots, n$ are the elementary outcomes in the sample space $S$ and define the events $A_{i} = \{s_{i}\}$ for $i = 1, \ldots, n$. The assumption that all elementary outcomes are equally likely allows us to make the statement
+\begin{equation}
+p = P(A_{i}) = P(A_{j}) \;\; \mbox{for all} \;\; i,j \in \{1, \ldots, n\}.
+\end{equation}
+Following from the Kolmogorov Axioms,
+\begin{equation}
+1 = P(S) = P \left( \bigcup_{i = 1}^{n} A_{i} \right) = \sum_{i = 1}^{n} P(A_{i}) = \sum_{i = 1}^{n} p = n \, p
+\end{equation}
+which implies that $p = \frac{1}{n}$. For $1 \leq k < n$, let $B_{i} = \{b_{i}\}$ for $i = 1, \ldots, k$ (where $b_{i}$ is an elementary outcome in the sample space $S$), and let $B = \bigcup_{i = 1}^{k} B_{i}$. There are $k$ ways (out of $n$) that $B$ can occur and
+\begin{align*}
+P(B) &= P \left( \bigcup_{i = 1}^{k} B_{i} \right) \\
+     &= P(B_{1}) + P(B_{2}) + \cdots + P(B_{k}) \\
+     &= \frac{1}{n} + \frac{1}{n} + \cdots + \frac{1}{n} \\
+     &= \frac{k}{n}.
+\end{align*}
+In other words, the probability of the event $B$ is elementary outcomes in the subset $B$ divided by the  number of elementary outcomes in the sample space $S$.
+
+When the elementary outcomes are equally likely, computing the probability of an event $A$ defined on a sample space $S$ is simply the problem of counting the number of elementary outcomes contained in $A$ and the number of elementary outcomes contained in $S$.
+
+\subsection{Counting}
+
+\subsubsection{The Fundamental Theorem of Counting}
+
+If a job consists of $k$ separate tasks, the $i^{th}$ of which can be done in $n_{i}$ ways, then the entire job can be done in $n_{1} \times n_{2} \times \dots \times n_{k}$ ways.
+
+
+\subsubsection{Counting in Practice}
+
+There are two important considerations when counting: (1) counting with or without replacement, and (2) whether the ordering of the individual outcomes is important or not. Suppose a jar contains 5 different-colored marbles and we want to select a sequence of three colors.
+
+One approach would be to repeat the following steps 3 times: select a marble from the jar, note its color, and place it back in the jar.  This is an example of counting \emph{with replacement}.  Counting with replacement allows for repeated colors in the sequence.  If the marble is not replaced then we are counting \emph{without replacement} and the sequence will contain 3 distinct colors.
+
+Second, to illustrate the importance of ordering, suppose we select the three marbles without replacement.  If the three marbles are chosen one-at-a-time then we might observe the output sequence \{red, blue, green\}.  This sequence is different than the sequence \{green, red, blue\} even though the three colors are the same.  If the three marbles were instead chosen at the same time (i.e., hand goes into the jar and grabs $3$ marbles all in one action) there would be no first, second, or third marble.  When the order is taken into account, the set of $3$ colors \{red, blue, green\} yields $6$ different color sequences.
+
+The following table gives the number of possible arrangements of size $k$ from $n$ objects.
+
+\begin{equation}
+\begin{array}{r|c|c}
+                 & \mbox{Without Replacement}   & \mbox{With Replacement} \\ \hline
+ & \\
+\mbox{Unordered} &  \displaystyle {n \choose k} & \displaystyle {n+k-1 \choose k} \\
+ & \\ \hline
+ & \\
+\mbox{Ordered}   & \displaystyle \frac{n!}{(n - k)!} & \displaystyle n^{k} \\
+ & \\
+\end{array}
+\end{equation}
+
+The notation ${n \choose k} = \frac{n!}{k! (n - k)!}$ is read $n$ choose $k$.
+
+
+\subsection{Conditional probability}
+
+Suppose $A$ and $B$ are events defined on a sample space $S$ and that $P(B) > 0$.  The \emph{conditional probability} of $A$ given $B$ is
+\begin{equation}
+P(A | B) = \frac{P (A \cap B)}{P(B)}.
+\end{equation}
+
+For a fixed event $B$ with $P(B) > 0$, conditional probabilities behave like regular probabilities. In particular,
+
+\begin{enumerate}
+\item $P(A | B) \geq 0$ for all events $A \subset S$,
+\item $P(S | B) = 1$, and
+\item if $A_{1}$, $A_{2}$, $\ldots$ are disjoint events, then
+\begin{equation}
+P \left( \bigcup_{k = 1}^{\infty} A_{k} \big| B \right) = \sum_{k=1}^{\infty} P(A_{k} | B).
+\end{equation}
+\end{enumerate}
+
+In other words, $P(\cdot | B)$ is a probability function. For any events $A$, $B$, and $C$ with $P(B)~>~0$,
+
+\begin{enumerate}
+\item $P(A^{c} | B ) = 1 - P (A | B)$,
+\item if $A \subset C$ then $P(A | B) \leq P(C | B)$, and
+\item $P\big((A \cup C) | B \big) = P(A | B) + P(C | B) - P\big( (A \cap C) | B \big).$
+\end{enumerate}
+
+\subsection{Independent events}
+
+Two events $A$ and $B$ are \emph{independent} if 
+\begin{equation}
+P(A \cap B) = P(A) P(B).
+\end{equation}
+Otherwise, the events are \emph{dependent}. 
+
+When $A$ and $B$ are independent and $P(B) > 0$,
+\begin{equation}
+P(A | B) = \frac{P(A \cap B)}{P(B)} = \frac{P(A) \, P(B)}{P(B)} = P(A).
+\end{equation}
+
+Conceptually, independent means the information that $B$ has occurred does not influence the probability of $A$.  Similarly, $P(A|B) = P(A)$, and so the occurrence of the event $B$ likewise has no effect on the probability $A$.  It may seem more natural to define $A$ and $B$ to be independent when $P(B|A) = P(B)$.  However, the conditional probability $P(A|B)$ is only defined when $P(B) > 0$.  The definition presented here is not limited by this restriction.
+
+If the events $A$ and $B$ are independent then
+\begin{enumerate}[(i)]
+\item $A$ and $B^{c}$ are independent,
+\item $A^{c}$ and $B^{c}$ are independent.
+\end{enumerate}
+
+
+\subsubsection{Mutual Independence}
+
+The events $A$, $B$, and $C$ are \emph{mutually independent} if the following four conditions are met: 
+\begin{enumerate}
+\item $P(A \cap B) = P(A) P(B)$
+\item $P(A \cap C) = P(A) P(C)$
+\item $P(B \cap C) = P(B) P(C)$
+\item $P(A \cap B \cap C) = P(A) \, P(B) \, P(C)$
+\end{enumerate}
+
+If only the first three conditions hold then $A$, $B$, and $C$ are said to be \emph{pairwise} independent. Pairwise independence is a weaker condition than mutual independence when the number of events is larger than two.
+
+
+\subsection{The Law of Total Probability}
+
+A collection of sets $\{B_{1}, B_{2}, \ldots, B_{k}\}$ defined on a sample space $S$ is a \emph{partition} of $S$ if
+\begin{equation}
+\bigcup_{i = 1}^{k} B_{i} = S
+\end{equation}
+and
+\begin{equation}
+B_{i} \cap B_{j} = \emptyset \quad \mbox{for} \quad i \neq j.
+\end{equation}
+
+
+Let $A$ be an event and let $\{B_{1}, B_{2}, \ldots, B_{k}\}$ be a partition of the sample space $S$.  The \emph{Law of Total Probability} states that
+\begin{equation}
+P(A) = \sum_{i = 1}^{k} P(A \cap B_{i}) = \sum_{i = 1}^{k} P(A | B_{i}) \, P(B_{i}).
+\end{equation}
+
+For an event $A$, situations arise where we know the probabilities of the partitioning events $\{B_{1}, B_{2}, \ldots, B_{k}\}$ and the conditional probabilities $P(A | B_{i})$, but not the proability of $A$ itself.  The Law of Total Probability allows us to solve these types of problems.
+
+Consider a bond portfolio composed of $50$ high credit-quality bonds, $30$ medium credit-quality bonds, and $20$ junk bonds.  Suppose the random experiment is to select a single bond from the portfolio (assume that each bond is equally likely to be selected).  In this random experiment the sample space comprises $100$ elementary outcomes: one for each bond in the portfolio.  Let $B_{1}$ be the event that a high credit-quality bond is selected, $B_{2}$ the event that a medim credit-quality bond is selected, and $B_{3}$ the event that a junk bond is selected.
+
+\begin{exercise}
+Compute $P(B_{1})$, $P(B_{2})$, and $P(B_{3})$.
+\end{exercise}
+
+Next, suppose that the default probabilities for high, medium, and junk credit-quality bonds are respectively $0.01$, $0.05$, and $0.25$. Let the event $A = \{\mbox{the selected bond defaults}\}$.  The sample space now consists of $200$ elementary outcomes.
+
+\begin{center}
+\begin{tabular}{c|c|c}
+ & default & not default \\ \hline
+bond 1 & bond 1 defaults & bond 1 does not default \\
+bond 2 & bond 2 defaults & bond 2 does not default \\
+$\vdots$ & $\vdots$ & $\vdots$ \\
+bond 100 & bond 100 defaults & bond 100 does not default
+\end{tabular}
+\end{center}
+
+\vspace{1em}
+
+Suppose that $B_{1}$ comprises the first $50$ rows, $B_{2}$ the next $30$, and $B_{3}$ the final $20$.  Since each row occurs with equal probability, it is easy to assign probabilities to $B_{1}$, $B_{2}$, and $B_{3}$.  The same logic will not work on the columns since the probability of default, $P(A)$, depends on the row.  What we do know are the conditional probabilities
+\begin{equation*}
+P(A | B_{1}) = 0.01, \quad P(A | B_{2}) = 0.05, \quad \mbox{and} \quad P(A | B_{3}) = 0.25.
+\end{equation*}
+The Law of Total Probability computes $P(A)$.
+\begin{align*}
+P(A) &= P(A | B_{1}) \times P(B_{1}) + P(A | B_{2}) \times P(B_{2}) + P(A | B_{3}) \times P(B_{3}) \\
+     &= 0.01 \times 0.5 + 0.05 \times 0.3 + 0.2 \times 0.25 \\
+     &= 0.07
+\end{align*}
+The probability that a randomly selected bond from the portfolio defaults is $7\%$.
+
+
+\subsection{Bayes' theorem}
+
+Let $\{B_{1}, B_{2}, \ldots, B_{k}\}$ be a partition of the sample space $S$, and let $A$ be an event defined on $S$ satisfying $P(A) > 0$.  \emph{Bayes' Theorem} states that
+\begin{equation}
+P(B_{j} | A) = \frac{P(A | B_{j}) P(B_{j})}{\sum_{i = 1}^{k} P(A | B_{i}) P(B_{i})} \quad \mbox{for} \quad j = 1, \ldots, k.
+\end{equation}
+
+Continuing the bond portfolio example, Bayes' theorem can be used to answer questions of the form, ``suppose the randomly selected bond from the portfolio defaults, what is the probability that it is a medium credit-quality bond?''  Mathematically, this question is asking, ``what is $P(B_{2} | A)$?'' Following from Bayes' theorem,
+\begin{equation*}
+P(B_{2} | A) = \frac{P(A | B_{2}) \, P(B_{2})}{\sum_{i = 1}^{3} P(A | B_{i}) \, P(B_{i})}.
+\end{equation*}
+Before we do too much work, notice that the denominator in Bayes' theorem is the expression for $P(A)$ given by the Law of Total Probability.  We have already calculated $P(A) = 0.07$ so lets recycle that result,
+\begin{equation*}
+P(B_{2} | A) = \frac{0.05 \times 0.3}{0.07} = \frac{0.015}{0.07} = \frac{3}{14}.
+\end{equation*}
+
+\begin{exercise}
+Calculate $P(B_{1} | A)$, and $P(B_{3} | A)$.
+\end{exercise}
+
+
+
+
+
+
+
+
+
+
+

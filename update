@@ -1,0 +1,24 @@
+#! /MacPorts/bin/Rscript
+
+library(tools)
+library(knitr)
+
+Rnw.files <- list.files(pattern = glob2rx("*.Rnw"), full.names = TRUE, recursive = TRUE)
+if(length(unique(basename(Rnw.files))) != length(Rnw.files))
+  stop("Chapter Rnw files must have unique names")
+
+for(x in Rnw.files) {
+  tex.file <- paste(file_path_sans_ext(x), "tex", sep = ".")
+  if(file.exists(tex.file)) {
+    if(file.mtime(x) > file.mtime(tex.file)) {
+      file.remove(tex.file)
+      status <- knit(x, output = tex.file, envir = new.env())
+    }
+  } else {
+    status <- knit(x, output = tex.file, envir = new.env())
+  }
+}
+
+system2("pdflatex", "psp4qf.tex")
+
+
