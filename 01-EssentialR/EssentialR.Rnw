@@ -18,12 +18,12 @@ R is Free Software (under the terms of the Free Software Foundation's GNU Genera
 
 \vspace{0.5em}
 
-This chapter is a minimal introduction to R. 
+This chapter is a minimal introduction to R.  R is a full-featured programming language and there are many ways to carry out each task covered in this chapter.  However, this chapter is only going to cover one way to accomplish each task (and it might not even be the best way).  The point is to learn enough R to be able to under the commands in the following chapters.
 
 
 \section{Installing R and R Studio}
 
-The R software itself is simply a command interpreter: the user enters a text command and the interpreter returns a text (or graphic) answer.  RStudio is an integrated development environment (IDE) tailored for R.  An IDE is a program or suite of programs designed to make developing code easier.  RStudio provides a syntax-highlighting text editor with code completion, an R debugger, and its own graphics display (among a great many other features). 
+The R software itself is simply a command interpreter: the R interpreter accepts text commands and returns text (or graphical) answers.  RStudio is an integrated development environment (IDE) tailored for R.  An IDE is a program or suite of programs whose purpose is to facilitate developing code.  RStudio includes a syntax-highlighting text editor with code completion, an R debugger, and its own graphics display (among a great many other features).  RStudio provides a comfortable environment for working with R and is highly recommended.
 
 \subsubsection{Installing R}
 
@@ -31,10 +31,10 @@ The R installer is available from 0-Cloud (a service provided by RStudio).
 
 \hspace{\mathindent} \url{https://cran.rstudio.com/}
 
-Download links are provided for Linux, Mac OS X, and MS Windows (Windows users should select the base link on the following page).  Download and install the software as usual.
+Download links are provided for Linux, Mac OS X, and MS Windows (Windows users should follow the base link on the subsequent page).  Download and install the software as usual.
 
 After installing, launch R and run the command
-<<eval = FALSE>>=
+<<demo1, eval = FALSE>>=
 demo("graphics")
 @
 in the R Console as a quick check that things are working.  This command will run through a brief demonstration of R's graphics capabilities (note: you may need to press enter in the R Console to advance through the graphics).
@@ -52,88 +52,63 @@ The R Studio installer is available from the R Studio website
 
 
 After installing R Studio, run the command
-<<eval = FALSE>>=
+<<demo2, eval = FALSE>>=
 demo("graphics")
 @
-in the R Studio Console as a quick check that things are working
-
-
+in the RStudio Console as a quick check that things are working.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Basic R Usage}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\label{sec:basic-r-usage}
 
-The R Console
+\subsubsection{The R Console}
 
-The \texttt{>} symbol is called the prompt: R is prompting you to enter a command
-
-\vspace{0.5em}
-
-
-R as a calculator: input the command $1 + 1$ at the prompt and press return
+After launching R the console window will show a brief startup message followed by a line beginning with a \texttt{>}.  The \texttt{>} symbol is called the prompt: R is prompting the user to enter a command. The prompt appears automatically whenever R is ready to accept a command.  If the bottom line of the console does not begin with the prompt then R is either busy or expecting additional input.  Pressing escape (esc) or control-c (Ctrl-c) will (in most cases) terminate the current R task and return the prompt.
 
 
+\subsubsection{R as a Calculator}
 
-<<results = "hide">>=
+At the most basic level, R can serve as a calculator.  For example, input the command
+
+<<onePlusOne, results = "hide">>=
 1 + 1
 @
 
-\vspace{0.25em}
+after the prompt and press return.  The result appears on the next line.
 
-
-The result appears on the next line
-
-
-
-<<echo = FALSE>>=
+<<onePlusOneEquals, echo = FALSE>>=
 1 + 1
 @
 
-\vspace{0.25em}
+The answer of course is \Sexpr{1 + 1}, the meaning of the \texttt{[1]} will be explained shortly.
 
-
-R can replace your 4 function calculator (R follows the usual order of operations)
-
-\vspace{0.5em}
-
+The four basic operations and the power operation are given in the following table.
 
 \hspace{1em} \begin{tabular}{clcclccl}
 \texttt{+} & addition & & \texttt{-} & subtraction & & \texttt{\^} & power\\
 \texttt{*} & multiplication & & \texttt{/} & division & & & \\
 \end{tabular}
 
-\vspace{2em}
+
+\subsubsection{Comments}
+The R interpreter ignores any input following a \texttt{\#} until the next new line.  For example,
+<<comment>>=
+1 + 2  #sum of the first two positive integers
+@
+R evaluates the input \texttt{1 + 2} but skips over the comment \texttt{\#sum of the first two positive integers}.
 
 
-Comments: any input following a \texttt{\#} is ignored (until the next new line)
+\subsubsection{Mathematical Functions}
 
+R includes many mathematical functions. One that often catches new users off-guard is the \texttt{log} function which returns the \emph{natural} logarithm of its argument.
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Mathematical Functions
-
-R includes a wide variety of mathematical functions
-
-\vspace{0.5em}
-
-
-For example, the \texttt{log} function returns the \emph{natural} logarithm of its argument
-
-
-
-<<>>=
-log(5)
+<<log>>=
+log(10)
 @
 
-\vspace{0.5em}
-
-
-Some commonly used functions are given in the following table
-
-\vspace{1em}
+Some commonly used functions are given in the following table.
 
 \hspace{1em} \begin{tabular}{llcll}
 \texttt{log} & logarithm & \hspace{4em} & \texttt{exp} & exponential \\
@@ -143,177 +118,110 @@ Some commonly used functions are given in the following table
 \texttt{sqrt} & square root & \hspace{4em} &  &
 \end{tabular}
 
+Note: trigonometric functions use radians.
+
+\subsubsection{Constants and Special Values}
+
+The following table shows two common constants and the special values $\pm \infty$ and \emph{not a number}.
+
+\begin{minipage}[t]{0.475\linewidth}
+\begin{center}
+\textbf{Constants}
+\end{center}
+
 \vspace{1em}
 
-Note: trigonometric functions use radians
-
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Constants and Special Values
-
-
-\textbf{Constants}
-
-
-
-Exponential base: $e^{1}$
-
-<<>>=
+Exponential base: $e = e^{1}$
+<<e>>=
 exp(1)
 @
 
-\vspace{0.5em}
-
-
-$\pi$
-
-<<>>=
+Pi: $\pi$
+<<pi>>=
 pi
 @
-
-
-
+\end{minipage}
+\hspace{0.0375\linewidth}
+\begin{minipage}[t]{0.475\linewidth}
+\begin{center}
 \textbf{Special Values}
+\end{center}
 
+\vspace{1em}
 
-
-Plus and minus infinity
-
-
-
-<<>>=
+Infinity: $\infty$
+<<Inf>>=
 1/0
 @
 
-
-
-<<>>=
+Minus infinity: $-\infty$
+<<minusInf>>=
 log(0)
 @
 
-\vspace{0.5em}
-
-
 Not a Number
-
-
-
-<<>>=
+<<NaN>>=
 0/0
 @
+\end{minipage}
 
 
+\subsubsection{Double-Precision}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Numeric values are stored in R using the \emph{double-precision floating-point format}.  Numbers in this format are more commonly called \emph{doubles}.  Doubles approximate real numbers but not all real numbers can be represented as doubles (e.g., $\frac{1}{3}$ can not be represented exactly as a double).  This leads to some strange behavior.  For example,
+\begin{equation}
+\left( \frac{1}{x} \right)^{n} - \frac{1}{x^{n}} = 0
+\end{equation}
+\emph{always} for real values of $x \neq 0$ and $n = 1, 2, \ldots$.  Let $x = 3$ and try this in R with $n = 2$
 
-Caveats
-
-Numerical calculations in R are done using \emph{double precision} arithmetic
-
-\vspace{0.5em}
-
-
-Double precision arithmetic is \emph{not} real arithmetic
-
-\vspace{0.25em}
-
-
-\begin{itemize}
-\item There are a finite number of double precision numbers
-
-\vspace{0.25em}
-
-
-\item Input numbers are \textit{coerced} to the most appropriate double precision number
-\end{itemize}
-
-\vspace{0.5em}
-
-
-Leads to \textit{unexpected} behavior
-
-<<>>=
+<<caveat2>>=
 (1/3)^2 - 1 / (3^2)
 @
 
-\vspace{1em}
+and $n = 3$.
 
-
-But \dots
-
-<<>>=
+<<caveat3>>=
 (1/3)^3 - 1 / (3^3)
 @
 
+This is \emph{not} a bug in R (nor in the double-precision floating-point format).  In the first case, the double-precision approximation of $\frac{1}{3}$ squared turned out to be exactly the same (by dumb luck) as the double-precision approximation of $\frac{1}{9}$ so the difference is zero.  In the second case, the double-precision approximation of $\frac{1}{3}$ cubed is not the same as the double-precision approximation of $\frac{1}{27}$ so the difference is not exactly zero.  However, the difference is many orders of magnitude smaller than $\frac{1}{27}$. This result is often referred to as \emph{numerically zero}.
+
+Why use double-precision numbers?  Computations are fast.  The trade is speed for small errors in the insignificant digits.  In many applications speed is more important than exact accuracy.
 
 
+\subsubsection{Variables}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Variables
-
-Values (e.g., the output of a function) can be saved in memory, this chunk of memory is called a \emph{variable}
-
-\vspace{0.5em}
-
-
-For example, suppose we want to evaluate $\sin(\frac{\pi}{2})$
-
-\vspace{0.5em}
-
-
-First, evaluate $\frac{\pi}{2}$ and store the result
-
-
-
-<<>>=
+A \emph{variable} is a location in the computer's memory that contains a quantity of information called a \emph{value}.  Typically, the value is the output of a function but it can also be entered manually (through the console).  A variable has a name to distinguish itself, this name is called a \emph{symbol} (symbolic name) or an \emph{identifier}.  In R, variables can be created using the assignment operator \texttt{<-}.  For example, the expression
+<<variable>>=
 u <- pi / 2
 @
-
-
-
-The assignment operator in R is \texttt{<-}, it assigns the value on the right to the variable on the left
-
-\vspace{0.5em}
-
-
-Second, compute the value of $\sin(\mbox{\texttt{u}})$
-
-<<>>=
+creates a new variable named \texttt{u} and assigns it the value $\frac{\pi}{2} \approx$ \Sexpr{pi / 2}.  Now that \texttt{u} exists in memory, we can use the value $\frac{\pi}{2}$ by referring to the symbol \texttt{u} rather than by recomputing the division.  For instance, to evaluate the expression
+\begin{equation}
+v = \sin \left( \frac{\pi}{2} \right)
+\end{equation}
+we could use the expression
+<<sinu>>=
 (v <- sin(u))
 @
+which requires evaluating only the sine function rather than
+<<sinPiOver2>>=
+v <- sin(pi / 2)
+@
+which requires recomputing the quotient $\frac{\pi}{2}$ before computing the sine function.
+
+Notice that when the output of the function is assigned to a variable, it does not get printed to the console.  If the entire command is enclosed in parentheses, then the value will be both assigned and printed.
 
 
+\subsubsection{Symbols}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Variable Names
-
-Variable names need/should conform to the following guidelines
-
-\vspace{0.25em}
-
+Symbols (variable names) should (in some cases must) conform to the following guidelines.
 
 \begin{itemize}
-\item Variable names need to start with a character
+\item Symbols must start with a character.
 
-\vspace{0.25em}
+\item Symbols can contain characters, numbers, periods, and underscores.
 
-
-\item Variable names can contain characters, numbers, periods, and underscores 
-
-\vspace{0.25em}
-
-
-\item Variable names cannot be an R reserved word
-
-\vspace{1em}
-
+\item R reserved words cannot be use as symbols.
 
 \hspace{1em} \begin{tabular}{lllll}
 if & else & repeat & while & function \\
@@ -322,54 +230,31 @@ FALSE & NULL & Inf & NaN & NA \\
 \dots
 \end{tabular}
 
-\vspace{1em}
-
-
-\item Best practice: variable names should not be the name of a common R function
-
-\vspace{0.25em}
-
+\item Best practice: symbols should not be the name of a common R function.
 
 \begin{itemize}
-\item \normalsize Some common collisions are \texttt{c}, \texttt{t}, \texttt{mean}, \texttt{var}, and \texttt{cov}
+\item \normalsize Some common collisions are \texttt{c}, \texttt{t}, \texttt{mean}, \texttt{var}, and \texttt{cov}.
 \end{itemize}
 
 \end{itemize}
 
 
+\subsubsection{Workspace Management}
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Workspace Management
-
-Variables are stored in R's workspace
-
-\vspace{0.5em}
-
-Use the \texttt{ls} function to list the variables in the workspace
-
-<<>>=
+Variables are stored in R's workspace.  The \texttt{ls} function to list the variables in the workspace.
+<<ls>>=
 ls()
 @
-
-Use the \texttt{rm} function to remove variables from the workspace
-
-<<>>=
+The \texttt{rm} function to removes variables from the workspace.
+<<removeU>>=
 rm(u)
 @
-
-
-<<>>=
+Relisting the variables in the workspace shows that \texttt{u} is no longer there.
+<<rels>>=
 ls()
 @
 
-\vspace{0.5em}
-
-
-R asks to save the workspace when quitting, saved workspaces are automatically restored the next time R starts
-
-
+R asks to save the workspace when quitting, saved workspaces are automatically restored the next time R starts.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -378,240 +263,142 @@ R asks to save the workspace when quitting, saved workspaces are automatically r
 
 What is an Array Programming Language?
 
-An array programming language generalizes operations to apply transparently to single and multi-dimensional arrays
+\begin{quote}
+An array programming language generalizes operations to apply transparently to single and multi-dimensional arrays.
+\end{quote}
 
-\vspace{0.5em}
-
-
-In R \dots
-
-
-
+In R
 \begin{itemize}
-\item a one dimensional array is called a \emph{vector}
+\item a one dimensional array is called a \emph{vector},
 
-\vspace{0.25em}
+\item a two dimensional array is called a \emph{matrix},
 
-
-\item a two dimensional array is called a \emph{matrix}
-
-\vspace{0.25em}
-
-
-\item Higher dimensional arrays are possible but we are not going to use them
+\item higher dimensional arrays are supported but are beyond the scope of this introduction.
 \end{itemize}
 
-\vspace{1em}
-
-
-A goal of array programming is to provide a syntax similar to mathematical notation
-
-
-
+A goal of array programming is to provide a syntax similar to mathematical notation.
 \begin{itemize}
-\item Very useful for \emph{programming with data}
+\item Array programming languages are very useful for \emph{programming with data}.
 \end{itemize}
 
 
+\subsubsection{Vectors}
+
+A \emph{vector} is an ordered collection of $n$ values with the same underlying type.  For instance, if the underlying type is \emph{numeric}, then each of the $n$ values is a double-precision number.  Suppose ${\bf v}$ is the following numeric vector of 3 values.
+\begin{equation}
+{\bf v} = (1.4, 3.2, -4.5)
+\end{equation}
+
+The first component (element) of ${\bf v}$ is $v_{1} = 1.4$, the second $v_{2} = 3.2$, and the third $v_{3} = -4.5$.  Note that here \emph{ordered} means $v_{1}$ is the first component, $v_{2}$ the second, and so on.  Ordered does \emph{not} mean that the values are in order (sorted).
+
+Also, notice the notation being used.  The vector itself is in bold and the components are distinguished by a positive integer subscript.
+
+The number of values in the vector is called the \emph{length} of the vector.  The length of ${\bf v}$ is~3.
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Creating Vectors}
 
-Vectors
+The function \texttt{c} combines values into a vector.
 
-A \emph{vector} is an ordered collection of $n$ values with the same underlying type
-
-\vspace{1em}
-
-
-Example: suppose the vector ${\bf u} = (u_{1}, u_{2})$ describes a point in the $xy$-plane
-
-
-
-\begin{itemize}
-\item Both $u_{1}$ and $u_{1}$ should be real numbers
-
-\vspace{0.25em}
-
-
-\item Since the first value defines the $x$ coordinate and the second value the $y$ coordinate, the vector $(u_{1}, u_{2})$ is (in general) different than the vector $(u_{2}, u_{1})$
-\end{itemize}
-
-\vspace{0.5em}
-
-
-The number of values in the vector is called the \emph{length} of the vector
-
-\vspace{1em}
-
-
-Supported types include
-\begin{itemize}
-\item numeric
-\item character
-\item \dots
-\end{itemize}
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Creating Vectors
-
-The function \texttt{c} combines values into a vector
-
-<<>>=
-(primes <- c(2, 3, 5, 7))
+<<createVectorc>>=
+(v <- c(1.4, 3.2, -4.5))
 @
 
-\vspace{1em}
+The variable \texttt{v} now contains the vector ${\bf v}$.  The function \texttt{length} returns the length of the vector.
 
-
-The function \texttt{length} returns the length of the input vector
-
-<<>>=
-length(primes)
+<<lengthV>>=
+length(v)
 @
 
-\vspace{1em}
+The function \texttt{seq} creates vectors of equally-space values.  The following command creates a vector for values starting at -1 and going to 1 in steps of size 0.1.
 
-
-The function \texttt{seq} creates sequences of equally-space values
-
-<<>>=
-seq(-1, 1, 0.5)
+<<seq>>=
+(x <- seq(-1, 1, 0.1))
 @
 
-<<>>=
-seq(from = -1, to = 1, length = 5)
+Now is a good time to explain the meaning of the \texttt{[\#]} (where \texttt{\#} is some positive integer) at the beginning of each output line.  The variable \texttt{x} contains ${\bf x}$, a vector of \Sexpr{length(x)} values.  It is too long to print on one line so it wraps onto a second line.  The \texttt{[1]} indicates that $x_{1} = -1.0$ and the \texttt{[15]} indicates that that $x_{15} = 0.4$.  That is, the first number on the line starting with \texttt{[15]} is the $15^{\mbox{\tiny th}}$ component of the vector ${\bf x}$.
+
+
+\subsubsection{Naming Vector Components}
+
+The \texttt{=} operator assigns a name to a value.  Suppose an asset manager holds a portfolio composed of 40\% equities, 40\% fixed income securities, and 20\% real estate.
+
+<<named>>=
+(asset.class.weights <- c("Equities" = 0.4, "Fixed Income" = 0.4,
+                          "Real Estate" = 0.2))
 @
 
+When the components of a vector have names, R does not print the \texttt{[\#]} indicator at the beginning of each output line.
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Naming Vector Components
-
-The \texttt{=} operator assigns a name to a value
-
-\vspace{0.5em}
-
-
-Names can be given to the components of a vector
+The \texttt{names} function returns the names of the components of a vector.
 
 <<>>=
-wall.street.wiz <- c(houses = 3, cars = 5, boats = 2)
+names(asset.class.weights)
 @
 
-<<>>=
-wall.street.wiz
+The output of the \texttt{names} functions is a vector but the underlying type is character: each value in the vector is a character string.
+
+\begin{remark}
+Assigning a name to a value (\texttt{=}) often has the same effect as assigning a value to a variable (\texttt{<-}).  This implies that both \texttt{=} and \texttt{<-} can be used for assignment (most of the time).  However, it is considered a \emph{best practice} to use \texttt{<-} for assignment and (\texttt{=}) for naming.
+\end{remark}
+
+
+\subsubsection{Matrices}
+
+A \emph{matrix} is a two dimensional array of values (of the same type) described by a number of rows and a number of columns.  The function \texttt{cbind} combines vectors (with the same length) into a matrix.
+
+<<mat>>=
+(mat <- cbind(c(11, 21, 31), c(12, 22, 32)))
 @
 
-\vspace{0.5em}
+The \texttt{[i,]} (\texttt{i} a positive integer) at the beginning of each row indicates the index of that row and the \texttt{[,j]} at the top of each column indicates the index of that column.  Observe that the first vector becomes the first column of the matrix and so on.
 
+If the arguments to the \texttt{cbind} function are variables then that symbol is used as the name of the of the corresponding column in the matrix.
 
-The \texttt{names} function returns the names of the components of a vector
-
-<<>>=
-names(wall.street.wiz)
-@
-
-\vspace{0.5em}
-
-
-Remark: assigning a name to a value (\texttt{=}) often has the same effect as assigning a value to a variable (\texttt{<-}) $\implies$ \texttt{=} and \texttt{<-} can be used interchangeably
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Matrices
-
-A \emph{matrix} is a two dimensional array of values (of the same type) described by a number of rows and a number of columns
-
-\vspace{0.5em}
-
-
-The function \texttt{cbind} combines vectors (with the same length) into a matrix
-
-
-
-<<>>=
-col1 <- c(11, 21, 31, 41)
-col2 <- c(12, 22, 32, 42)
+<<matNames>>=
+col1 <- c(11, 21, 31)
+col2 <- c(12, 22, 32)
 (mat <- cbind(col1, col2))
 @
 
+\begin{exercise}
+The \texttt{rbind} function creates a matrix by binding vectors row-by-row (as opposed to the \texttt{cbind} function that binds the vectors column-by-column).  Use the \texttt{rbind} function to create the matrix \texttt{mat} (do not worry about row/column names).  Hint, \texttt{rbind} will require 3 inputs.
+\end{exercise}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Component-wise Operations on Vectors
+\subsubsection{Component-wise Operations on Vectors}
 
 What does it mean to
 \begin{quote}
-\dots generalize operations to apply transparently to single and multi-dimensional arrays
+\dots generalize operations to apply transparently to single and multi-dimensional arrays.
 \end{quote}
 
-\vspace{0.5em}
+When a vector is provided as the argument to an operation (or function), the output is a vector containing the operation (or function) applied to each component of the input vector.  First, make an input vector.
 
-
-When a vector is provided as the argument of a function, the output is a vector containing the function applied to each component of the input vector
-
-\vspace{0.5em}
-
-<<>>=
-(x <- 1:9)  # x <- seq(1, 9, 1)
+<<x>>=
+(x <- 1:9)  # same as x <- seq(1, 9, 1)
 @
 
-<<>>=
+Adding one to a vector has the effect of adding one to each component of the vector.
+
+<<xplus1>>=
+x + 1
+@
+
+Similarly, the square root of a vector is a vector containing the square roots of each component of the input vector.
+
+<<sqrtx>>=
 sqrt(x)
 @
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Component-wise Composite Functions
-
-Shifting: adding a length $n$ vector and a length $1$ vector
-
-<<>>=
-x
-@
-
-<<>>=
-x + 2
-@
-
-\vspace{1em}
+\begin{exercise}
+Give a command that multiplies each component of \texttt{x} by 3.
+\end{exercise}
 
 
-Scaling: multiplying a length $n$ vector by a length $1$ vector
+\subsubsection{Element-wise Composite Functions}
 
-\vspace{0.5em}
-
-
-<<>>=
-3*x
-@
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Element-wise Composite Functions
-
-Functions act element-wise on matrices
-
-<<>>=
-mat
-@
-
-\vspace{0.5em}
-
+Operations (functions) act element-wise on matrices.  The following command multiplies each element of \texttt{mat} by 3 then adds 2.
 
 <<>>=
 3*mat + 2
@@ -622,483 +409,320 @@ mat
 \subsection{Subsetting Vectors}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Logical-Valued Functions
-
-Logical values in R are \texttt{TRUE} and \texttt{FALSE}
-
-\vspace{0.5em}
+The subset operator in R is square brackets: \texttt{[]}.
 
 
-Functions with a yes/no output generally return logical values
+\subsubsection{Subsetting Vectors by Index}
 
-\vspace{0.5em}
+Let ${\bf v}$ be a vector of $n$ values (i.e., the length of ${\bf v}$ is $n$).  Let $i$ be an integer from the set $\{1, 2, \ldots, n\}$.  Recall that the notation for the $i^{\mbox{\tiny th}}$ component of ${\bf v}$ is $v_{i}$.
 
-<<>>=
-x
+Suppose \texttt{v} is a variable containing the vector ${\bf v}$, then the $i^{\mbox{\tiny th}}$ component of \texttt{v} can be extracted using the \texttt{[]} operator (technically this is a subset containing one component).
+
+<<subseti>>=
+v
+v[2]
 @
 
-\vspace{0.25em}
+From now on the notation \texttt{v[i]} will denote the $i^{\mbox{\tiny th}}$ component of the vector~${\bf v}$.
 
+The argument provided to the \texttt{[]} operator (that is, the \emph{thing} in between the square brackets) can itself be a vector.  As a best practice, it should contain only values from the set $\{1, 2, \ldots, n\}$ (i.e., don't try to form a subset from components that do not exist).
 
-<<>>=
+<<idx>>=
+(indices <- c(1, 3))
+@
+
+Since \texttt{indices} has length 2, the output will be
+\begin{equation*}
+\mbox{\texttt{v[indices]}} = \big( \mbox{\texttt{v[indices[1]]}}, \mbox{\texttt{v[indices[2]]}} \big) = \big( \mbox{\texttt{v[1]}}, \mbox{\texttt{v[3]}} \big) = \big( 1.4, -4.5 \big)
+\end{equation*}
+which can be easily verified with R.
+<<subsetvec>>=
+v[indices]
+@
+The output vector has the same length as the \texttt{[]} operator argument \texttt{indices} and the $j^{\mbox{\tiny th}}$ component of the output vector is \texttt{v[indices[j]]}.  Repeated values are allowed but all of the values in the output vector must be in the input vector (in this case, \texttt{v}).
+
+<<subsetex>>=
+v[c(2,2,1,3,1)]
+@
+
+\begin{exercise}
+Create a vector of equally spaced values starting at 0, ending at 1, and with step size 0.1.  Use the \texttt{[]} operator to create a subset containing the $3^{\mbox{\tiny rd}}$ and $8^{\mbox{\tiny th}}$ components.
+\end{exercise}
+
+\subsubsection{Logical-Valued Functions}
+
+In addition to subsetting a vector by index, a vector can also be subset by a rule: each component is in the subset only if it satisfies the rule.  In R, this rule is defined using logical-valued functions.
+
+The logical values in R are \texttt{TRUE} and \texttt{FALSE}.  Functions of a yes/no nature generally return logical values.
+
+<<xgt4>>=
+x
 x > 4
 @
 
+The output is a logical vector the same length as the input vector.  The $i^{\mbox{\tiny th}}$ component is \texttt{TRUE} if \texttt{x[i]} satisfies the condition (in this case \texttt{x[i] > 4}) and \texttt{FALSE} otherwise.  The first three components of \texttt{x} are clearly less than 4, 4 is not strictly less than 4, and the remaining components are clearly greater than 4.  Greater (less) than or equal to and equality conditions are possible as well.
 
-\vspace{0.25em}
-
-
-<<>>=
+<<xgteq4>>=
 (x.gt.eq.4 <- x >= 4)
 @
 
-\vspace{0.25em}
 
+\subsubsection{Logical Vectors}
 
-<<>>=
-x == 4  # Remember the double precision caveat
-@
+The variable \texttt{x.gt.eq.4} contains a logical vector.  That is
+\begin{enumerate}
+\item it is a vector,
+\item the underlying type of value is logical (\texttt{TRUE}/\texttt{FALSE}).
+\end{enumerate}
 
+Let's create another logical vector indicating whether \texttt{x[i]} is less than or equal to 7.
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Logical Vectors
-
-The variable \texttt{x.gt.eq.4} is a logical vector, that is
-
-\begin{itemize}
-\item it is a vector
-
-\item the underlying type of value is logical
-\end{itemize}
-
-\vspace{1em}
-
-
-Lets create a second logical vector
-
-<<>>=
+<<xlteq7>>=
 (x.lt.eq.7 <- x <= 7)
 @
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Operations on Logical Vectors}
 
-Operations on Logical Vectors
+The three key operations for logical vectors are \emph{and} (\texttt{\&}), \emph{or} ($|$), and \emph{not} (\texttt{!}).
 
-Three key operations for logical vectors: \texttt{\&} (AND), \texttt{|} (OR), and \texttt{!} (NOT)
-
-\vspace{0.5em}
-
-
-Suppose that \texttt{x} and \texttt{y} are logical vectors with the same length
+Suppose that \texttt{x} and \texttt{y} are logical vectors with the same length.
 
 \vspace{1em}
 
 
-\texttt{AND}: \hspace{0.5em} \texttt{ans <- x \& y}
+\emph{and}: \hspace{0.5em} \texttt{l <- x \& y}
 
+\hspace{\mathindent} \texttt{l[i]} is \texttt{TRUE} if both \texttt{x[i]} and \texttt{y[i]} are \texttt{TRUE}, otherwise \texttt{l[i]} is \texttt{FALSE}.
 
-
-\hspace{1em} \texttt{ans}$_{i}$ is \texttt{TRUE} if both \texttt{x}$_{i}$ and \texttt{y}$_{i}$ are \texttt{TRUE}, otherwise \texttt{ans}$_{i}$ is \texttt{FALSE}
-
-
-
-<<>>=
+<<and>>=
 x.gt.eq.4
-@
-
-<<>>=
 x.lt.eq.7
-@
-
-\vspace{0.5em}
-
-<<>>=
 x.gt.eq.4 & x.lt.eq.7
 @
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Operations on Logical Vectors (continued)
-
-\texttt{OR}: \hspace{0.5em} \texttt{ans <- x | y}
-
-
-
-\hspace{1em} \texttt{ans}$_{i}$ is \texttt{FALSE} if both \texttt{x}$_{i}$ and \texttt{y}$_{i}$ are \texttt{FALSE}, otherwise \texttt{ans}$_{i}$ is \texttt{TRUE}
+The result of the and operation is \texttt{TRUE} only if the both inputs are \texttt{TRUE}.
 
 \vspace{1em}
 
+\emph{or}: \hspace{0.5em} \texttt{l <- x | y}
 
-<<>>=
+\hspace{\mathindent} \texttt{l[i]} is \texttt{FALSE} if both \texttt{x[i]} and \texttt{y[i]} are \texttt{FALSE}, otherwise \texttt{l[i]} is \texttt{TRUE}.
+
+<<or>>=
 x.gt.eq.4
-@
-
-<<>>=
 x.lt.eq.7
-@
-
-\vspace{1em}
-
-
-
-<<>>=
 x.gt.eq.4 | x.lt.eq.7
 @
 
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Operations on Logical Vectors (continued)
-
-\texttt{NOT}: \hspace{0.5em} \texttt{ans <- !x}
-
-
-
-\hspace{1em} \texttt{ans}$_{i}$ is \texttt{FALSE} if \texttt{x}$_{i}$ is \texttt{TRUE}, otherwise \texttt{ans}$_{i}$ is \texttt{TRUE}
+The result of the and operation is \texttt{FALSE} only if the both inputs are \texttt{FALSE}.  Another way to think of it: \texttt{l[i]} is \texttt{TRUE} if either or both of \texttt{x[i]} and \texttt{y[i]} are \texttt{TRUE}.
 
 \vspace{1em}
 
+\emph{not}: \hspace{0.5em} \texttt{l <- !x}
 
-<<>>=
+\hspace{\mathindent} \texttt{l[i]} is \texttt{FALSE} if \texttt{x[i]} is \texttt{TRUE}, otherwise \texttt{l[i]} is \texttt{TRUE}.
+
+The result is \texttt{FALSE} when the input is \texttt{TRUE} and \texttt{TRUE} when the input is \texttt{FALSE}.
+
+<<not>>=
 x.gt.eq.4
-@
-
-\vspace{1em}
-
-<<>>=
 !x.gt.eq.4
 @
 
 
+\subsubsection{Subsetting with Logical Vectors}
 
+Let \texttt{x} be a vector (with any underlying type), and let \texttt{idx} be a logical vector the same length as \texttt{x}.  Then \texttt{x[idx]} is a vector with the same underlying type as \texttt{x} that contains the components of \texttt{x} for which \texttt{idx} is \texttt{TRUE}.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Subsetting Vectors
-
-The subset operator in R is square brackets: \texttt{[]}
-
-\vspace{0.5em}
-
-
-If
-
-\vspace{-0.5em}
-
-
-\begin{itemize}
-\item \texttt{x} is a vector (with any underlying type)
-
-
-
-\item \texttt{idx} is a logical vector the same length as \texttt{x}
-\end{itemize}
-
-
-
-then \texttt{x[idx]} is a vector (with the same underlying type as \texttt{x}) containing the components of \texttt{x} for which \texttt{idx} is \texttt{TRUE} 
-
-\vspace{0.5em}
-
-<<>>=
-x[x.gt.eq.4]
+<<logicalsub>>=
+v
+(idx <- c(TRUE, FALSE, TRUE))
 @
 
-\vspace{0.5em}
+The command \texttt{v[idx]} will return a vector containing the first and third (because \texttt{idx[1]} and \texttt{idx[3]} are \texttt{TRUE}) components of \texttt{v}.  The second component of \texttt{v} is not included in the subset because \texttt{idx[2]} is \texttt{FALSE}.
 
-<<>>=
-x[x.lt.eq.7]
+<<logicalsub2>>=
+v[idx]
 @
 
+In this case, it would probably have been easier to create the subset using indices.  Logical subsetting is practical when the condition can be stated in the command.  For example, find the positive components of \texttt{v}.  The defining rule for the subset is
+\begin{quote}
+``the components of \texttt{v} such that \texttt{v[i]} is greater than zero''
+\end{quote}
+and this can be written in R as follows.
+<<subsetbyrule>>=
+v[v > 0]
+@
+The reason this works is that the rule \texttt{v > 0} generates the logical vector
+<<logicalrule>>=
+v > 0
+@
+which is in turn used to subset the original vector \texttt{v}.
 
 
+\subsubsection{Logical Subsetting -- More Examples}
 
+The vector \texttt{tsla.close} contains the closing prices for a share of Tesla (ticker TSLA) for the week of August $24^{\mbox{\tiny th}}$, 2015.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Subsetting Vectors -- More Examples
-
-<<E>>=
-x[x < 6]
+<<getTSLA, echo = FALSE, results = "hide", message = FALSE>>=
+if(file.exists("tsla.close.RData")) {
+  load("tsla.close.RData")
+} else {
+  library(quantmod)
+  getSymbols("TSLA", from = "2015-08-24", to = "2015-08-28")
+  tsla.close <- round(as.vector(Cl(TSLA)), digits = 2)
+  names(tsla.close) <- c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday")
+  save(tsla.close, file = "tsla.close.RData")
+}
 @
 
-\vspace{0.5em}
-
-<<>>=
-x[x > 2 & x < 8]
+<<tsla.close>>=
+tsla.close
 @
 
-\vspace{0.5em}
+It was a good week to own Tesla.
 
-<<>>=
-x[x <= 2 | x >= 8]
+\begin{enumerate}
+\item Create a vector containing the Tesla closing prices that are greater than \$220 and less than \$240.
+<<tslaEx1>>=
+tsla.close[tsla.close > 220 & tsla.close < 240]
 @
 
-\vspace{0.5em}
-
-<<>>=
-x[!(x == 3 | x == 6)]
+\item Create a vector containing the Tesla closing prices that are less than \$220 or greater than \$240.
+<<tslaEx2>>=
+tsla.close[tsla.close < 220 | tsla.close > 240]
 @
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Subsetting Vectors by Index
-
-Suppose that \texttt{x} is a vector of length $n$
-
-\vspace{0.5em}
-
-
-Let \texttt{idx} be a vector of values from the set $\{1, 2, \ldots, n\}$
-
-\vspace{0.5em}
-
-
-The vector \texttt{ans <- x[idx]} is the same length as \texttt{idx} and has components
-
-\vspace{0.5em}
-
-\hspace{1em} \texttt{ans}$_{i}$ = \texttt{x}$_{\mbox{\texttt{\tiny idx}}_{i}}$
-
-\vspace{0.5em}
-
-
-<<>>=
-primes
+Another possibility.
+<<tslaEx3>>=
+tsla.close[!(tsla.close > 220 & tsla.close < 240)]
 @
 
-\vspace{0.5em}
-
-<<>>=
-primes[c(2, 4)]
+\item Create a vector containing the Tesla closing prices that are greater than \$224.84.
+<<tslaEx4>>=
+tsla.close[tsla.close > 224.84]
 @
 
-\vspace{1em}
+Another possibility.
+<<tslaEx5>>=
+tsla.close[!(tsla.close <= 224.84)]
+@
+\end{enumerate}
 
-
-From now on: write \texttt{ans[i]} to mean \texttt{ans}$_{i}$
-
-
-
+\begin{exercise}
+Create the vector \texttt{tsla.close}.  Which day (during this particular week) did Tesla first close above \$240?  Hint: the \texttt{names} function returns the names of the components of a vector.
+\end{exercise}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Installing and Loading R Packages}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-R Packages
+\subsubsection{R Packages}
 
-An R package is a collection of functions and data (and \dots)
+R packages are collections of functions and data.  Loading a package into the R session extends the capabilities of R.
 
-\vspace{0.5em}
-
-
-$\implies$ loading a package into your R session extends the capabilities of R
-
-\vspace{1em}
-
-
-Packages loaded by default
-
+The \texttt{search} function packages returns the packages that are currently loaded in the R session.
 <<>>=
 search()
 @
+(The first value, \texttt{.GlobalEnv}, is the workspace.)
 
-\vspace{1em}
-
-
-For the curious: use the \texttt{find} function to see what package provides an object
-
+Every R function is in a package (several of which are loaded by default).  The \texttt{find} function returns the package providing an object.  For instance, the \texttt{log} function
 <<>>=
 find("log")
 @
+is provided by the \texttt{base} package.
 
 
+\subsubsection{Loading R Packages}
+
+Later in the course the \texttt{fitdistr} function from the \texttt{MASS} package will be used to compute maximum likelihood estimates.  The \texttt{MASS} package is a recommended package.  Recommended packages are installed along with R but are not loaded into the R session by default.  Packages not loaded by default must be explicitly loaded into each R session (that is, each time R is launched).
+
+Before the \texttt{MASS} package is loaded, R cannot find the \texttt{fitdistr} function.
+<<>>=
+find("fitdistr")
+@
+(\texttt{character(0)} means a vector of type character containing zero components.)
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Loading R Packages
-
-Later in the course, we will use the \texttt{fitdistr} function from the \texttt{MASS} package
-
-\vspace{0.5em}
-
-
-\texttt{MASS} is a recommended package, it is already installed on your computer
-
-\vspace{0.5em}
-
-
-The \texttt{library} function loads and attaches packages to the R session
-
-
-
+The \texttt{library} function loads installed packages into the R session.
 <<>>=
 library(MASS)
 @
 
-
-
-The functions and data provided by the \texttt{MASS} package are now available to the R session
+The functions and data provided by the \texttt{MASS} package are now available in the R session.
 
 <<>>=
 search()
 @
+
+When the \texttt{MASS} package is loaded, R is able to find the \texttt{fitdistr} function.
 
 <<>>=
 find("fitdistr")
 @
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsubsection{Installing R Packages}
 
-Installing R Packages
+There is an extensive collection of user-contributed R packages and this collection is one of the main reasons for the popularity of R.  The \href{http://cran.r-project.org/web/packages/available_packages_by_name.html}{\emph{Comprehensive R Archive Network}} (CRAN) is a clearing house for user-contributed packages.
 
-The extensive collection of user-contributed packages is one of the reasons for the popularity of R
-
-\vspace{0.5em}
-
-
-The \href{http://cran.r-project.org/web/packages/available_packages_by_name.html}{Comprehensive R Archive Network} (CRAN) is a clearing house for user-contributed packages
-
-\vspace{0.5em}
-
-
-The \texttt{install.packages} function downloads packages from CRAN and installs them on your computer
-
-\vspace{0.5em}
-
-
-The \texttt{getSymbols} function on the \texttt{quantmod} package will be the primary source of price data used in this course
-
-
-
+The \texttt{install.packages} function downloads and installs packages from CRAN.  The \texttt{getSymbols} function from the \texttt{quantmod} package will be the primary source of price data used in this course.  The \texttt{quantmod} package is not installed along with R.  Let's use \texttt{install.packages} to get it.
 <<eval = FALSE>>=
 install.packages("quantmod")
 @
-
-
-
-The package must be loaded and attached to the R session
-
-
-
-<<>>=
-library("quantmod")
-@
-
-<<>>=
+Upon the successful completion of the preceding command, the \texttt{quantmod} package is installed on the computer.  However, the package is not yet loaded into the R session.
+<<whereisgetSymbols>>=
 find("getSymbols")
 @
-
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Summary R Packages
-
-Installing a package means downloading the package from CRAN and installing it on the computer
-
-\vspace{0.5em}
-
-
-\hspace{1em} Installing only needs to be done once (per computer)
-
-\vspace{2em}
-
-
-Loading and attaching a package means telling the R session to look for functions (data, etc.) in the package
-
-\vspace{0.5em}
-
-
-\hspace{1em} Loading and attaching needs to be done in each R session
-
-
+Use the \texttt{library} function to load the \texttt{quantmod} package into the R session.
+<<loadQuantmod, message = FALSE>>=
+library("quantmod")
+@
+Now, R can find the \texttt{getSymbols} function.
+<<whereisgetSymbols2>>=
+find("getSymbols")
+@
+Installing R packages is similar to installing software. The software only needs to be installed once (per computer) but it needs to be loaded each time it is to be used.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{The R Help System}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Getting Help
+\subsubsection{Getting Help}
 
-The \texttt{log} function returns the natural logarithm of its argument
+The \texttt{help} function displays the documentation provided for an R function or dataset.
 
-\vspace{0.5em}
-
-
-How were we supposed to know that?
-
-\vspace{0.5em}
-
-
-The \texttt{help} function displays the documentation associated with an object
-
-
-
-<<eval = FALSE>>=
+<<helplog, eval = FALSE>>=
 help(log)
 @
 
-\vspace{0.5em}
+Documentation is generally divided into sections including
 
+\begin{tabular}{r|l}
+\textbf{Description} & what does the function do, \\
+\textbf{Usage} & how to call the function, \\
+\textbf{Arguments} & supported types of arguments, \\
+\textbf{Details} & additional explanation (if needed), \\
+\textbf{Value} & a description of the returned object, \\
+\textbf{See Also} & related functions, and \\
+\textbf{Examples} & examples.
+\end{tabular}
 
-Documentation is divided into sections including
-
-
-
-\begin{description}
-\item[Description] a description of the function or functions
-
-
-
-\item[Usage] how to call the function
-
-
-
-\item[Arguments] supported types of arguments
-
-
-
-\item[Details] additional explanation if needed
-
-
-
-\item[Value] a description of the returned object
-
-
-
-\item[See Also] related functions
-
-
-
-\item[Examples]
-\end{description}
+\begin{exercise}
+Section \ref{sec:basic-r-usage} stated that the \texttt{log} function returns the natural logarithm of its argument. What function returns the common logarithm (i.e., logarithm with base 10)?
+\end{exercise}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Plotting}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-The \texttt{plot} Function
+\subsubsection{The \texttt{plot} Function}
 
-The \texttt{plot} function produces scatter plots
-
-
+This section covers using the \texttt{plot} function to produce scatter plots.  The documentation for the \texttt{plot} function includes the following.
 
 \begin{verbatim}
 Usage:
@@ -1106,168 +730,101 @@ Usage:
      plot(x, y, ...)
 \end{verbatim}
 
+The points are $(x_{i}, y_{i})$, the argument \texttt{x} is a vector containing the $x$ values and \texttt{y} is a vector (the same length as \texttt{x}) containing the $y$ values.
 
+The \texttt{...} is a placeholder for optional arguments.
 
-The points are $(x_{i}, y_{i})$, the argument \texttt{x} is a vector containing the $x$ values and \texttt{y} is a vector (the same length as \texttt{x}) containing the $y$ values
+Example Data:
 
-\vspace{0.5em}
-
-
-The \texttt{...} is a placeholder for optional arguments
-
-\vspace{2em}
-
-
-Example:
-
-<<>>=
+<<plotExData>>=
 x <- seq(0.1, 5, 0.1)
 y <- log(x)
 @
 
+Plot with defaults options.
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Plot with Defaults
-
-<<>>=
+<<basicPlot, fig.width = 4, fig.height = 4, fig.align = "center">>=
 plot(x, y)
 @
 
 
+Use the optional argument \texttt{type} to select the type of plot.  For example, use \texttt{type = "l"} to make a line plot.  See the documentation for the \texttt{plot} function for supported types.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Optional Arguments: \texttt{type}
-
-<<>>=
+<<linePlot, fig.width = 4, fig.height = 4, fig.align = "center">>=
 plot(x, y, type = "l")
 @
 
 
+The optional argument \texttt{xlab} overrides the default $x$-axis label and the optional argument \texttt{ylab} overrides the default $y$-axis label.  Each argument should be a character string.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Optional Arguments: Axis Labels
-
-<<>>=
+<<labeledPlot, fig.width = 4, fig.height = 4, fig.align = "center">>=
 plot(x, y, xlab = "x-axis label", ylab = "y-axis label")
 @
 
 
+The optional argument \texttt{main} puts a title on the plot.  The argument should be a character string.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Optional Arguments: Title
-
-<<>>=
+<<titlePlot, fig.width = 4, fig.height = 4, fig.align = "center">>=
 plot(x, y, main = "Plot Title")
 @
 
 
+The optional arguments \texttt{xlim} and \texttt{ylim} set the plotting region.  Each argument should be a vector of length 2 containing the lower limit and the upper limit.  For example, the following command specifies that the $x$-axis runs from $-1$ to $6$ and that the $y$-axis runs from $-3$~to~$3$.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Optional Arguments: Plotting Region
-
-<<>>=
+<<regionPlot, fig.width = 4, fig.height = 4, fig.align = "center">>=
 plot(x, y, xlim = c(-1, 6), ylim = c(-3, 3))
 @
 
 
+The optional argument \texttt{asp} sets the aspect ratio of the plot.  The following example sets the aspect ratio to $1$ so that 1 unit on the $x$-axis is the same actual length as 1 unit on the $y$-axis.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Optional Arguments: Setting the Aspect Ratio
-
-<<>>=
+<<aspPlot, fig.width = 4, fig.height = 4, fig.align = "center">>=
 plot(x, y, asp = 1)
 @
 
 
+The optional argument \texttt{pch} sets the symbol used to plot points.  Setting \texttt{pch} to an integer value from 1 to 25 provides a range of plot symbols.  Alternatively, \texttt{pch} may be a character string.  The following example sets \texttt{pch = 16} to plot with filled circles.
 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Optional Arguments: Plotting Symbol
-
-<<>>=
+<<symbolPlot, fig.width = 4, fig.height = 4, fig.align = "center">>=
 plot(x, y, pch = 16)
 @
 
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+The optional argument \texttt{col} sets the color.  The argument should be a character string naming a color. See the \texttt{colors} function for possible values.
 
-Optional Arguments: Color
-
-<<>>=
+<<colPlot, fig.width = 4, fig.height = 4, fig.align = "center">>=
 plot(x, y, col = "blue")
 @
 
 
+\subsubsection{Object-Oriented Plotting}
 
+This example is beyond the scope of the course but sometimes it is nice to see what is possible.  Since R is an object-oriented programming language, the behavior of the \texttt{plot} function depends on what \texttt{x} is.  If \texttt{x} is a vector, \texttt{plot} makes a scatter plot.  If \texttt{x} is a financial prices series.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Square Plotting Region
-
-<<>>=
-par(pty = "s")
-plot(x, y)
+<<getSBUX, message = FALSE>>=
+getSymbols("SBUX", src = "google")
 @
 
+The variable \texttt{SBUX} contains 10 years of price data for Starbucks.
 
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Object-Oriented Plotting
-
-R is an object-oriented programming language $\implies$ behavior of the plot function depends on what \texttt{x} is
-
-\vspace{0.5em}
-
-If \texttt{x} is a vector then we get a scatter plot
-
-\vspace{0.5em}
-
-If \texttt{x} is a financial prices series
-
-<<>>=
-getSymbols("SBUX")
+<<headSBUX>>=
+head(SBUX)
 @
 
-The variable \texttt{SBUX} contains 10 years of price data for Starbucks
+The \texttt{Cl} function extracts just the closing price column.
 
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-Plotting a Price Series
-
-<<>>=
-plot(SBUX)
+<<ooPlot, fig.width = 7, fig.height = 4, fig.align = "center">>=
+plot(Cl(SBUX), main = "Starbuck Closing Price")
 @
+
+The output of the \texttt{plot} function depends on the type of the object being plotted.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Additional Resources}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-Additional Resources for Learning R
-
 DataCamp: The easiest way to learn R programming and data science
-
-\vspace{0.5em}
 
 \hspace{1em} \url{https://www.datacamp.com}
 

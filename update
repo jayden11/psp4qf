@@ -19,6 +19,7 @@ for(x in Rnw.files) {
   }
 }
 
-system2("pdflatex", "psp4qf.tex")
-
+status <- system2("pdflatex", c("-file-line-error", "-halt-on-error", "psp4qf.tex"))
+if(status)
+  stop("knitted tex file contains latex errors")
 

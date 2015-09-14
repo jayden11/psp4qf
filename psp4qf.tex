@@ -1,6 +1,6 @@
 \documentclass[12pt,fleqn]{book}
 
-\includeonly{01-EssentialR/EssentialR}
+%\includeonly{01-EssentialR/EssentialR}
 
 \usepackage[letterpaper]{geometry}
 \geometry{tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
@@ -34,7 +34,7 @@
   {} % Body font
   {} % Indent amount
   {\bfseries} % Theorem head font
-  {.} % Punctuation after theorem head
+  {\\} % Punctuation after theorem head
   {.5em} % Space after theorem head
   {} % Theorem head spec (can be left empty, meaning `normal')
 
@@ -42,7 +42,10 @@
   \newtheorem{defn}{Definition}[chapter]
   \newtheorem{example}{Example}[chapter]
   \newtheorem{exercise}{Exercise}[chapter]
-  \newtheorem{rem}{Remark}
+  \newtheorem{remark}{Remark}
+
+\numberwithin{exercise}{chapter}
+\numberwithin{remark}{chapter}
 
 
 \title{A Probability and Statistics Primer for Quantitative Finance}
